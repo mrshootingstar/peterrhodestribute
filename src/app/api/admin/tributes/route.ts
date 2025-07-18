@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
+export const runtime = 'edge';
+
 async function validateAdminSession() {
   const cookieStore = await cookies();
   const sessionId = cookieStore.get('admin_session')?.value;

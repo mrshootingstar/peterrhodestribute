@@ -3,6 +3,8 @@ import { cookies } from 'next/headers';
 import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
 
+export const runtime = 'edge';
+
 export async function POST(request: NextRequest) {
   try {
     const { password } = await request.json();

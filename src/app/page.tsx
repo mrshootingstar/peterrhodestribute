@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { TributeForm } from './components/TributeForm';
 import { PhotoGallery } from './components/PhotoGallery';
 import { TributesList } from './components/TributesList';
@@ -59,7 +58,7 @@ export default function HomePage() {
         {/* Footer */}
         <footer className="text-center mt-20 py-8 border-t border-slate-200">
           <p className="text-slate-600">
-            "Those we love don't go away, they walk beside us every day."
+            &ldquo;Those we love don&apos;t go away, they walk beside us every day.&rdquo;
           </p>
         </footer>
       </div>

@@ -114,7 +114,7 @@ export function TributeForm() {
           </span>
         </label>
         <p className="text-xs text-blue-600 mt-1 ml-7">
-          Your name will be shown as "Anonymous" if checked
+          Your name will be shown as &ldquo;Anonymous&rdquo; if checked
         </p>
       </div>
 

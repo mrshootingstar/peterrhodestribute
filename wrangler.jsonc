@@ -37,10 +37,8 @@
 	
 	/**
 	 * Environment Variables
+	 * Note: TRIBUTE_ADMIN_PASSWORD_HASH is set as a secret (not in code)
 	 */
-	"vars": {
-		"ADMIN_PASSWORD_HASH": "your-admin-password-hash"
-	}
 	
 	/**
 	 * Smart Placement

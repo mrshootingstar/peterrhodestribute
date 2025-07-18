@@ -5,7 +5,7 @@ declare namespace Cloudflare {
 	interface Env {
 		DB: D1Database;
 		IMAGES: R2Bucket;
-		ADMIN_PASSWORD_HASH: string;
+		TRIBUTE_ADMIN_PASSWORD_HASH: string;
 	}
 }
 interface CloudflareEnv extends Cloudflare.Env {}

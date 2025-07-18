@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     const env = process.env as any;
-    const adminPasswordHash = env.ADMIN_PASSWORD_HASH;
+    const adminPasswordHash = env.TRIBUTE_ADMIN_PASSWORD_HASH;
 
     if (!adminPasswordHash) {
       return NextResponse.json(

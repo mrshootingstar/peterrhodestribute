@@ -195,12 +195,12 @@ export function TributeForm() {
             id="image"
             name="image"
             onChange={handleFileChange}
-            accept="image/*"
+            accept="image/jpeg,image/jpg,image/png"
             className="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer"
           />
         </div>
         <p className="text-xs text-gray-400 mt-2">
-          Max file size: 10MB. Supported formats: JPG, PNG, GIF, WEBP
+          Max file size: 10MB. Supported formats: JPG, PNG only
         </p>
         {selectedFile && (
           <div className="mt-2 p-2 bg-green-900/30 border border-green-500/50 rounded-lg">

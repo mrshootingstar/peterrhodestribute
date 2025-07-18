@@ -90,26 +90,26 @@ export function TributesList() {
           <div className="p-6 md:p-8">
             <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 pb-4 border-b border-gray-700">
               <div className="flex items-center space-x-3 mb-2 sm:mb-0">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <h4 className="text-xl md:text-2xl font-semibold text-white">
+                <h4 className="text-2xl md:text-3xl font-semibold text-white">
                   {tribute.name}
                 </h4>
               </div>
-              <time className="text-sm text-gray-400 font-medium">
+              <time className="text-base text-gray-400 font-medium">
                 {formatDate(tribute.created_at)}
               </time>
             </header>
             
             <blockquote className="relative">
-              <div className="absolute -top-2 -left-2 text-4xl text-blue-400/30 font-serif">&ldquo;</div>
-              <p className="text-gray-200 leading-relaxed text-lg md:text-xl whitespace-pre-wrap italic pl-6 pr-6">
+              <div className="absolute -top-2 -left-2 text-5xl text-blue-400/30 font-serif">&ldquo;</div>
+              <p className="text-gray-200 leading-relaxed text-xl md:text-2xl whitespace-pre-wrap italic pl-8 pr-8">
                 {tribute.message}
               </p>
-              <div className="absolute -bottom-4 -right-2 text-4xl text-blue-400/30 font-serif transform rotate-180">&ldquo;</div>
+              <div className="absolute -bottom-4 -right-2 text-5xl text-blue-400/30 font-serif transform rotate-180">&ldquo;</div>
             </blockquote>
             
             <footer className="mt-8 pt-6 border-t border-gray-700">

@@ -6,13 +6,13 @@ import { useState, useEffect } from 'react';
 export function PhotoGallery() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [photos] = useState([
+    '/photos/Peter-Rhodes-7.jpeg',
     '/photos/Peter-Rhodes-1.jpeg',
     '/photos/Peter-Rhodes-2.jpeg',
     '/photos/Peter-Rhodes-3.jpeg',
     '/photos/Peter-Rhodes-4.jpeg',
     '/photos/Peter-Rhodes-5.jpeg',
     '/photos/Peter-Rhodes-6.jpeg',
-    '/photos/Peter-Rhodes-7.jpeg',
   ]);
 
   const nextImage = () => {
@@ -51,7 +51,7 @@ export function PhotoGallery() {
   return (
     <div className="max-w-6xl mx-auto">
       <h3 className="text-3xl md:text-4xl font-bold text-center text-white mb-8">
-        Cherished Memories
+      In Loving Memory with <br /> <span className="text-blue-400">“In Memoriam”</span>
       </h3>
       
       {/* Main carousel container */}

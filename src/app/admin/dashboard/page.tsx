@@ -38,7 +38,7 @@ export default function AdminDashboard() {
       }
 
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json() as { tributes: Tribute[] };
         setTributes(data.tributes);
       } else {
         setError('Failed to fetch tributes');

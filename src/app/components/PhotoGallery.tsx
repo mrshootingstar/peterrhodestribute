@@ -57,12 +57,12 @@ export function PhotoGallery() {
       {/* Main carousel container */}
       <div className="relative bg-white rounded-3xl shadow-2xl p-4 md:p-8 border border-gray-200">
         {/* Main image display */}
-        <div className="relative w-full h-[300px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-lg bg-gray-100">
+        <div className="relative w-full h-[300px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-gray-50 to-gray-100">
           <Image
             src={photos[currentImageIndex]}
             alt={`Memorial photo ${currentImageIndex + 1} of Peter Frederick Rhodes`}
             fill
-            className="object-cover object-center"
+            className="object-contain"
             style={{
               objectPosition: 'center center',
             }}
@@ -103,7 +103,7 @@ export function PhotoGallery() {
             <button
               key={index}
               onClick={() => goToImage(index)}
-              className={`relative flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+              className={`relative flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 bg-gray-50 ${
                 index === currentImageIndex 
                   ? 'border-blue-500 shadow-lg scale-110' 
                   : 'border-gray-300 hover:border-gray-400 hover:scale-105'
@@ -113,7 +113,7 @@ export function PhotoGallery() {
                 src={photo}
                 alt={`Thumbnail ${index + 1}`}
                 fill
-                className="object-cover object-center"
+                className="object-contain"
                 style={{
                   objectPosition: 'center center',
                 }}

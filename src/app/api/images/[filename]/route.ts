@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { filename: string } }
+  context: { params: Promise<{ filename: string }> }
 ) {
   try {
-    const { filename } = params;
+    const { filename } = await context.params;
     const env = process.env as any;
 
     if (!env.IMAGES) {

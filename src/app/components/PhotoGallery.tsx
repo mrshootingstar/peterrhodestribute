@@ -57,12 +57,15 @@ export function PhotoGallery() {
       {/* Main carousel container */}
       <div className="relative bg-white rounded-3xl shadow-2xl p-4 md:p-8 border border-gray-200">
         {/* Main image display */}
-        <div className="relative w-full h-[300px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-lg">
+        <div className="relative w-full h-[300px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-lg bg-gray-100">
           <Image
             src={photos[currentImageIndex]}
             alt={`Memorial photo ${currentImageIndex + 1} of Peter Frederick Rhodes`}
             fill
-            className="object-cover"
+            className="object-cover object-center"
+            style={{
+              objectPosition: 'center center',
+            }}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
             priority={currentImageIndex === 0}
           />
@@ -70,7 +73,7 @@ export function PhotoGallery() {
           {/* Navigation arrows */}
           <button
             onClick={prevImage}
-            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 md:p-3 rounded-full transition-all duration-200 z-10"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 md:p-3 rounded-full transition-all duration-200 z-10 backdrop-blur-sm"
             aria-label="Previous image"
           >
             <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +83,7 @@ export function PhotoGallery() {
           
           <button
             onClick={nextImage}
-            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 md:p-3 rounded-full transition-all duration-200 z-10"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 md:p-3 rounded-full transition-all duration-200 z-10 backdrop-blur-sm"
             aria-label="Next image"
           >
             <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -89,7 +92,7 @@ export function PhotoGallery() {
           </button>
 
           {/* Image counter */}
-          <div className="absolute top-2 md:top-4 right-2 md:right-4 bg-black bg-opacity-50 text-white px-2 md:px-3 py-1 md:py-2 rounded-full text-sm md:text-base">
+          <div className="absolute top-2 md:top-4 right-2 md:right-4 bg-black bg-opacity-50 text-white px-2 md:px-3 py-1 md:py-2 rounded-full text-sm md:text-base backdrop-blur-sm">
             {currentImageIndex + 1} / {photos.length}
           </div>
         </div>
@@ -102,15 +105,18 @@ export function PhotoGallery() {
               onClick={() => goToImage(index)}
               className={`relative flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
                 index === currentImageIndex 
-                  ? 'border-blue-500 shadow-lg' 
-                  : 'border-gray-300 hover:border-gray-400'
+                  ? 'border-blue-500 shadow-lg scale-110' 
+                  : 'border-gray-300 hover:border-gray-400 hover:scale-105'
               }`}
             >
               <Image
                 src={photo}
                 alt={`Thumbnail ${index + 1}`}
                 fill
-                className="object-cover"
+                className="object-cover object-center"
+                style={{
+                  objectPosition: 'center center',
+                }}
                 sizes="(max-width: 768px) 48px, 64px"
               />
             </button>
@@ -124,7 +130,7 @@ export function PhotoGallery() {
               key={index}
               onClick={() => goToImage(index)}
               className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                index === currentImageIndex ? 'bg-blue-500' : 'bg-gray-300'
+                index === currentImageIndex ? 'bg-blue-500 scale-125' : 'bg-gray-300'
               }`}
               aria-label={`Go to image ${index + 1}`}
             />

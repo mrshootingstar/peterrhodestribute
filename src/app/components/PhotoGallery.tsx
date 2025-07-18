@@ -51,7 +51,7 @@ export function PhotoGallery() {
   return (
     <div className="max-w-6xl mx-auto">
       <h3 className="text-3xl md:text-4xl font-bold text-center text-white mb-8">
-      In Loving Memory with <br /> <span className="text-blue-400">“In Memoriam”</span>
+        Cherished Memories
       </h3>
       
       {/* Main carousel container */}

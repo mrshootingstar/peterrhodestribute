@@ -50,10 +50,6 @@ export function PhotoGallery() {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-white mb-8">
-        Cherished Memories
-      </h3>
-      
       {/* Main carousel container */}
       <div className="relative bg-gray-800 rounded-3xl shadow-2xl p-4 md:p-8 border border-gray-700">
         {/* Main image display */}

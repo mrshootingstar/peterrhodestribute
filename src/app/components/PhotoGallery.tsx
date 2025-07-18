@@ -94,7 +94,7 @@ export function PhotoGallery() {
         </div>
 
         {/* Thumbnail navigation */}
-        <div className="flex justify-center mt-4 md:mt-6 space-x-2 md:space-x-3 overflow-x-auto pb-2">
+        <div className="flex justify-center mt-4 md:mt-6 space-x-2 md:space-x-3 overflow-x-auto px-3 py-2 pb-4">
           {photos.map((photo, index) => (
             <button
               key={index}

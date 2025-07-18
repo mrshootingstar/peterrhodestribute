@@ -28,7 +28,7 @@ export default function HomePage() {
               1948 - 2025
             </div>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-200 leading-relaxed italic px-2 sm:px-4">
-              Forever Treasured Husband, Father, Brother, and Professor
+              Forever Treasured Husband, Father, Brother, Grandfather, and Professor
             </p>
           </div>
         </section>

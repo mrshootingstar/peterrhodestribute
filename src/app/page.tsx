@@ -57,8 +57,11 @@ export default function HomePage() {
 
         {/* Footer */}
         <footer className="text-center mt-12 sm:mt-16 lg:mt-20 py-6 sm:py-8 border-t border-gray-700">
+          <h4 className="text-xl sm:text-2xl font-bold text-white mb-2">
+            Peter Rhodes Memorial
+          </h4>
           <p className="text-gray-300 text-sm sm:text-base px-4 leading-relaxed">
-            &ldquo;Those we love don&apos;t go away, they walk beside us every day.&rdquo;
+            A place to remember, share, and celebrate Peter&apos;s life
           </p>
         </footer>
       </div>

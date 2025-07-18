@@ -55,9 +55,9 @@ export function PhotoGallery() {
       </h3>
       
       {/* Main carousel container */}
-      <div className="relative bg-white rounded-3xl shadow-2xl p-4 md:p-8 border border-gray-200">
+      <div className="relative bg-gray-800 rounded-3xl shadow-2xl p-4 md:p-8 border border-gray-700">
         {/* Main image display */}
-        <div className="relative w-full h-[300px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-gray-50 to-gray-100">
+        <div className="relative w-full h-[300px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-gray-900 to-gray-800">
           <Image
             src={photos[currentImageIndex]}
             alt={`Memorial photo ${currentImageIndex + 1} of Peter Frederick Rhodes`}
@@ -103,10 +103,10 @@ export function PhotoGallery() {
             <button
               key={index}
               onClick={() => goToImage(index)}
-              className={`relative flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 bg-gray-50 ${
+              className={`relative flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 bg-gray-700 ${
                 index === currentImageIndex 
-                  ? 'border-blue-500 shadow-lg scale-110' 
-                  : 'border-gray-300 hover:border-gray-400 hover:scale-105'
+                  ? 'border-blue-400 shadow-lg scale-110' 
+                  : 'border-gray-600 hover:border-gray-500 hover:scale-105'
               }`}
             >
               <Image
@@ -130,7 +130,7 @@ export function PhotoGallery() {
               key={index}
               onClick={() => goToImage(index)}
               className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                index === currentImageIndex ? 'bg-blue-500 scale-125' : 'bg-gray-300'
+                index === currentImageIndex ? 'bg-blue-400 scale-125' : 'bg-gray-500'
               }`}
               aria-label={`Go to image ${index + 1}`}
             />

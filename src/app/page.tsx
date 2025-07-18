@@ -9,7 +9,7 @@ export default function HomePage() {
         {/* Header */}
         <header className="text-center mb-8 sm:mb-10 lg:mb-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 leading-tight">
-            In Loving Memory
+            In Memoriam
           </h1>
         </header>
 

@@ -4,51 +4,51 @@ import { TributesList } from './components/TributesList';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Header */}
-        <header className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-slate-800 mb-4">
+        <header className="text-center mb-8 sm:mb-10 lg:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 leading-tight">
             In Loving Memory
           </h1>
         </header>
 
         {/* Photo Gallery */}
-        <section className="mb-12">
+        <section className="mb-8 sm:mb-10 lg:mb-12">
           <PhotoGallery />
         </section>
 
         {/* Memorial Information */}
-        <section className="text-center mb-16">
-          <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-lg p-12 border border-slate-200">
-            <h2 className="text-6xl font-bold text-slate-800 mb-6">
+        <section className="text-center mb-12 sm:mb-14 lg:mb-16">
+          <div className="max-w-4xl mx-auto bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-12 border border-gray-700">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 lg:mb-6 leading-tight">
               Peter Frederick Rhodes
             </h2>
-            <div className="text-3xl text-slate-600 mb-8 font-semibold">
+            <div className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-4 sm:mb-6 lg:mb-8 font-semibold">
               1948 - 2025
             </div>
-            <p className="text-2xl text-slate-700 leading-relaxed italic">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-200 leading-relaxed italic px-2 sm:px-4">
               Forever Treasured Husband, Father, Brother, and Professor
             </p>
           </div>
         </section>
 
         {/* Tribute Submission Section */}
-        <section className="mb-16">
+        <section className="mb-12 sm:mb-14 lg:mb-16">
           <div className="max-w-4xl mx-auto">
-            <h3 className="text-4xl font-bold text-center text-slate-800 mb-8">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-6 sm:mb-8 px-4">
               Share Your Memories
             </h3>
-            <div className="bg-white rounded-3xl shadow-lg p-8 border border-slate-200">
+            <div className="bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 lg:p-8 border border-gray-700">
               <TributeForm />
             </div>
           </div>
         </section>
 
         {/* Approved Tributes */}
-        <section>
+        <section className="mb-8 sm:mb-12 lg:mb-16">
           <div className="max-w-6xl mx-auto">
-            <h3 className="text-4xl font-bold text-center text-slate-800 mb-12">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-8 sm:mb-10 lg:mb-12 px-4">
               Tributes & Memories
             </h3>
             <TributesList />
@@ -56,8 +56,8 @@ export default function HomePage() {
         </section>
 
         {/* Footer */}
-        <footer className="text-center mt-20 py-8 border-t border-slate-200">
-          <p className="text-slate-600">
+        <footer className="text-center mt-12 sm:mt-16 lg:mt-20 py-6 sm:py-8 border-t border-gray-700">
+          <p className="text-gray-300 text-sm sm:text-base px-4 leading-relaxed">
             &ldquo;Those we love don&apos;t go away, they walk beside us every day.&rdquo;
           </p>
         </footer>

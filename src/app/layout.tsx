@@ -27,21 +27,22 @@ export const metadata: Metadata = {
       {
         url: '/candle.svg',
         type: 'image/svg+xml',
-        sizes: 'any'
-      }
-    ],
-    shortcut: [
+        sizes: '16x16'
+      },
       {
         url: '/candle.svg',
-        type: 'image/svg+xml'
+        type: 'image/svg+xml',
+        sizes: '32x32'
       }
     ],
-    apple: [
-      {
-        url: '/candle.svg',
-        type: 'image/svg+xml'
-      }
-    ]
+    shortcut: {
+      url: '/candle.svg',
+      type: 'image/svg+xml'
+    },
+    apple: {
+      url: '/candle.svg',
+      type: 'image/svg+xml'
+    }
   },
 };
 

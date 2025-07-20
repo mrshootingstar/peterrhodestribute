@@ -23,26 +23,9 @@ export const metadata: Metadata = {
   title: "Peter Frederick Rhodes Memorial - In Loving Memory",
   description: "A place to remember, share, and celebrate Peter's life. Share your memories and tributes to honor Peter Frederick Rhodes (1948-2025).",
   icons: {
-    icon: [
-      {
-        url: '/candle.svg',
-        type: 'image/svg+xml',
-        sizes: '16x16'
-      },
-      {
-        url: '/candle.svg',
-        type: 'image/svg+xml',
-        sizes: '32x32'
-      }
-    ],
-    shortcut: {
-      url: '/candle.svg',
-      type: 'image/svg+xml'
-    },
-    apple: {
-      url: '/candle.svg',
-      type: 'image/svg+xml'
-    }
+    icon: '/candle.svg?v=1',
+    shortcut: '/candle.svg?v=1',
+    apple: '/candle.svg?v=1',
   },
 };
 

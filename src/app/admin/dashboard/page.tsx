@@ -279,13 +279,12 @@ function TributeCard({
 
         <div className="lg:col-span-1">
           {tribute.image_url && (
-            <div className="relative w-full h-48 rounded-xl overflow-hidden shadow-md mb-4">
-              <Image
+            <div className="relative w-full flex justify-center items-center bg-slate-100 rounded-xl overflow-hidden shadow-md mb-4">
+              <img
                 src={tribute.image_url}
                 alt="Tribute photo"
-                fill
-                className="object-cover"
-                sizes="300px"
+                className="max-w-full max-h-[400px] h-auto object-contain"
+                loading="lazy"
               />
             </div>
           )}

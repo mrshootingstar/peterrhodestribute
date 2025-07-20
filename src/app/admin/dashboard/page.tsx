@@ -17,11 +17,14 @@ interface Tribute {
   admin_notes?: string;
 }
 
+type FilterType = 'all' | 'pending' | 'approved';
+
 export default function AdminDashboard() {
   const [tributes, setTributes] = useState<Tribute[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [processingId, setProcessingId] = useState<number | null>(null);
+  const [filter, setFilter] = useState<FilterType>('all');
   const router = useRouter();
 
   useEffect(() => {
@@ -94,8 +97,22 @@ export default function AdminDashboard() {
     });
   };
 
-  const pendingTributes = tributes.filter(t => !t.approved);
-  const approvedTributes = tributes.filter(t => t.approved);
+  const pendingTributes = tributes.filter((t: Tribute) => !t.approved);
+  const approvedTributes = tributes.filter((t: Tribute) => t.approved);
+
+  // Filter tributes based on selected filter
+  const getFilteredTributes = () => {
+    switch (filter) {
+      case 'pending':
+        return pendingTributes;
+      case 'approved':
+        return approvedTributes;
+      default:
+        return tributes;
+    }
+  };
+
+  const filteredTributes = getFilteredTributes();
 
   if (loading) {
     return (
@@ -147,54 +164,76 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Pending Tributes */}
-        {pendingTributes.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-slate-800 mb-6">
+        {/* Filter Buttons */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200 mb-8">
+          <h3 className="text-lg font-semibold text-slate-700 mb-4">Filter Tributes</h3>
+          <div className="flex flex-wrap gap-3">
+            <button
+              onClick={() => setFilter('all')}
+              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                filter === 'all'
+                  ? 'bg-blue-600 text-white shadow-lg scale-105'
+                  : 'bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200'
+              }`}
+            >
+              All Tributes ({tributes.length})
+            </button>
+            <button
+              onClick={() => setFilter('pending')}
+              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                filter === 'pending'
+                  ? 'bg-orange-600 text-white shadow-lg scale-105'
+                  : 'bg-orange-50 text-orange-600 hover:bg-orange-100 border border-orange-200'
+              }`}
+            >
               Pending Review ({pendingTributes.length})
-            </h2>
-            <div className="space-y-6">
-              {pendingTributes.map((tribute) => (
-                <TributeCard
-                  key={tribute.id}
-                  tribute={tribute}
-                  onApprove={(id, notes) => handleTributeAction(id, true, notes)}
-                  onReject={(id, notes) => handleTributeAction(id, false, notes)}
-                  isProcessing={processingId === tribute.id}
-                />
-              ))}
-            </div>
+            </button>
+            <button
+              onClick={() => setFilter('approved')}
+              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                filter === 'approved'
+                  ? 'bg-green-600 text-white shadow-lg scale-105'
+                  : 'bg-green-50 text-green-600 hover:bg-green-100 border border-green-200'
+              }`}
+            >
+              Approved ({approvedTributes.length})
+            </button>
           </div>
-        )}
+        </div>
 
-        {/* Approved Tributes */}
-        {approvedTributes.length > 0 && (
+        {/* Filtered Tributes Display */}
+        {filteredTributes.length > 0 ? (
           <div>
             <h2 className="text-2xl font-bold text-slate-800 mb-6">
-              Approved Tributes ({approvedTributes.length})
+              {filter === 'all' && `All Tributes (${filteredTributes.length})`}
+              {filter === 'pending' && `Pending Review (${filteredTributes.length})`}
+              {filter === 'approved' && `Approved Tributes (${filteredTributes.length})`}
             </h2>
             <div className="space-y-6">
-              {approvedTributes.map((tribute) => (
+              {filteredTributes.map((tribute) => (
                 <TributeCard
                   key={tribute.id}
                   tribute={tribute}
+                  onApprove={!tribute.approved ? (id, notes) => handleTributeAction(id, true, notes) : undefined}
                   onReject={(id, notes) => handleTributeAction(id, false, notes)}
                   isProcessing={processingId === tribute.id}
-                  isApproved={true}
+                  isApproved={tribute.approved}
                 />
               ))}
             </div>
           </div>
-        )}
-
-        {tributes.length === 0 && (
+        ) : (
           <div className="text-center py-12">
             <div className="bg-white rounded-3xl shadow-lg p-12 border border-slate-200">
               <h3 className="text-2xl font-semibold text-slate-700 mb-4">
-                No tributes yet
+                {filter === 'all' && 'No tributes yet'}
+                {filter === 'pending' && 'No pending tributes'}
+                {filter === 'approved' && 'No approved tributes'}
               </h3>
               <p className="text-slate-600">
-                Tributes submitted by visitors will appear here for review.
+                {filter === 'all' && 'Tributes submitted by visitors will appear here for review.'}
+                {filter === 'pending' && 'All tributes have been reviewed.'}
+                {filter === 'approved' && 'No tributes have been approved yet.'}
               </p>
             </div>
           </div>

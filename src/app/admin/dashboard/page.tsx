@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { TributeExporter } from '../../components/TributeExporter';
 
 interface Tribute {
   id: number;
@@ -25,6 +26,8 @@ export default function AdminDashboard() {
   const [error, setError] = useState('');
   const [processingId, setProcessingId] = useState<number | null>(null);
   const [filter, setFilter] = useState<FilterType>('all');
+  const [showExportMenu, setShowExportMenu] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -87,6 +90,34 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleExportLinked = async () => {
+    try {
+      setIsExporting(true);
+      setShowExportMenu(false);
+      await TributeExporter.exportWithLinkedImages(tributes);
+    } catch (error) {
+      setError('Failed to export tributes');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const handleExportZipped = async () => {
+    if (!confirm('This will download all images and create a ZIP file. This may take a while depending on the number of images. Do you want to continue?')) {
+      return;
+    }
+
+    try {
+      setIsExporting(true);
+      setShowExportMenu(false);
+      await TributeExporter.exportWithDownloadedImages(tributes);
+    } catch (error) {
+      setError('Failed to export tributes with images');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -134,12 +165,78 @@ export default function AdminDashboard() {
             <h1 className="text-4xl font-bold text-slate-800">Admin Dashboard</h1>
             <p className="text-slate-600 mt-2">Manage tributes for Peter Frederick Rhodes</p>
           </div>
-          <button
-            onClick={handleLogout}
-            className="bg-slate-600 hover:bg-slate-700 text-white px-6 py-2 rounded-xl transition-colors"
-          >
-            Logout
-          </button>
+          <div className="flex space-x-3">
+            <div className="relative">
+              <button
+                onClick={() => setShowExportMenu(!showExportMenu)}
+                disabled={tributes.length === 0 || isExporting}
+                className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white px-6 py-2 rounded-xl transition-colors flex items-center"
+              >
+                {isExporting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Exporting...
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Export
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </>
+                )}
+              </button>
+              
+              {showExportMenu && !isExporting && (
+                <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-slate-200 z-50">
+                  <div className="p-4">
+                    <h3 className="font-semibold text-slate-800 mb-3">Export Options</h3>
+                    
+                    <button
+                      onClick={handleExportLinked}
+                      className="w-full text-left p-3 hover:bg-slate-50 rounded-lg transition-colors border border-slate-200 mb-3"
+                    >
+                      <div className="font-medium text-slate-800">HTML with Linked Images</div>
+                      <div className="text-sm text-slate-600 mt-1">
+                        Fast download. Images remain on server. Requires internet to view images.
+                      </div>
+                    </button>
+                    
+                    <button
+                      onClick={handleExportZipped}
+                      className="w-full text-left p-3 hover:bg-slate-50 rounded-lg transition-colors border border-slate-200"
+                    >
+                      <div className="font-medium text-slate-800">ZIP with Downloaded Images</div>
+                      <div className="text-sm text-slate-600 mt-1">
+                        Slower download. Includes all images. Works offline. May take time to process.
+                      </div>
+                      <div className="text-xs text-orange-600 mt-1 font-medium">
+                        ⚠️ Warning: Large download, may take several minutes
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              )}
+              
+              {/* Overlay to close menu when clicking outside */}
+              {showExportMenu && !isExporting && (
+                <div 
+                  className="fixed inset-0 z-40" 
+                  onClick={() => setShowExportMenu(false)}
+                ></div>
+              )}
+            </div>
+            
+            <button
+              onClick={handleLogout}
+              className="bg-slate-600 hover:bg-slate-700 text-white px-6 py-2 rounded-xl transition-colors"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {error && (

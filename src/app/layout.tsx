@@ -24,11 +24,12 @@ export const metadata: Metadata = {
   description: "A place to remember, share, and celebrate Peter's life. Share your memories and tributes to honor Peter Frederick Rhodes (1948-2025).",
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '16x16 32x32' },
-      { url: '/candle.svg', type: 'image/svg+xml' }
+      { url: '/candle-v3.svg', type: 'image/svg+xml', sizes: 'any' },
+      { url: '/candle.svg?v=3', type: 'image/svg+xml', sizes: 'any' },
+      { url: '/favicon.ico?v=3', sizes: '16x16 32x32' }
     ],
-    shortcut: '/favicon.ico',
-    apple: '/candle.svg',
+    shortcut: '/candle-v3.svg',
+    apple: '/candle-v3.svg',
   },
 };
 

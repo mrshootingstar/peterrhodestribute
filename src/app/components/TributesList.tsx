@@ -86,7 +86,7 @@ export function TributesList() {
           >
             {tribute.image_url && (
               <div 
-                className="relative w-full cursor-pointer group overflow-hidden rounded-t-3xl"
+                className="relative w-full cursor-pointer group overflow-hidden rounded-t-3xl flex justify-center bg-gray-900"
                 onClick={() => handleImageClick(tribute.image_url!)}
               >
                 <Image
@@ -94,7 +94,7 @@ export function TributesList() {
                   alt="Memorial photo shared with tribute"
                   width={800}
                   height={600}
-                  className="w-full h-auto object-cover max-h-[500px] transition-transform duration-300 group-hover:scale-[1.02]"
+                  className="max-w-full max-h-[500px] h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                 />
                 {/* Overlay to indicate clickable */}

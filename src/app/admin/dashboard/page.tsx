@@ -279,13 +279,25 @@ function TributeCard({
 
         <div className="lg:col-span-1">
           {tribute.image_url && (
-            <div className="relative w-full flex justify-center items-center bg-slate-100 rounded-xl overflow-hidden shadow-md mb-4">
-              <img
-                src={tribute.image_url}
-                alt="Tribute photo"
-                className="max-w-full max-h-[400px] h-auto object-contain"
-                loading="lazy"
-              />
+            <div className="mb-4">
+              <div className="relative w-full flex justify-center items-center bg-slate-100 rounded-xl overflow-hidden shadow-md mb-3">
+                <img
+                  src={tribute.image_url}
+                  alt="Tribute photo"
+                  className="max-w-full max-h-[400px] h-auto object-contain"
+                  loading="lazy"
+                />
+              </div>
+              <a
+                href={tribute.image_url}
+                download={`tribute-${tribute.name.replace(/[^a-zA-Z0-9]/g, '-')}-${new Date(tribute.created_at).toISOString().split('T')[0]}.jpg`}
+                className="inline-flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-3 rounded-lg transition-colors"
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Download Image
+              </a>
             </div>
           )}
 

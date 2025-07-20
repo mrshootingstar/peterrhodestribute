@@ -85,26 +85,24 @@ export function TributesList() {
             className="bg-gray-800 rounded-3xl shadow-2xl border border-gray-700 overflow-hidden hover:border-gray-600 transition-all duration-300 hover:shadow-blue-500/10"
           >
             {tribute.image_url && (
-              <div className="relative w-full bg-gray-900">
-                <div 
-                  className="relative w-full min-h-[200px] max-h-[600px] cursor-pointer group"
-                  onClick={() => handleImageClick(tribute.image_url!)}
-                >
-                  <Image
-                    src={tribute.image_url}
-                    alt="Memorial photo shared with tribute"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto object-contain max-h-[600px] transition-transform duration-300 group-hover:scale-[1.02]"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                  />
-                  {/* Overlay to indicate clickable */}
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 rounded-full p-3">
-                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                      </svg>
-                    </div>
+              <div 
+                className="relative w-full cursor-pointer group overflow-hidden rounded-t-3xl"
+                onClick={() => handleImageClick(tribute.image_url!)}
+              >
+                <Image
+                  src={tribute.image_url}
+                  alt="Memorial photo shared with tribute"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto object-cover max-h-[500px] transition-transform duration-300 group-hover:scale-[1.02]"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                />
+                {/* Overlay to indicate clickable */}
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 rounded-full p-3">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                    </svg>
                   </div>
                 </div>
               </div>

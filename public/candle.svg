@@ -1,57 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <!-- Gradient for flame -->
-    <radialGradient id="flameGradient" cx="0.5" cy="0.7" r="0.6">
-      <stop offset="0%" stop-color="#fff9e6"/>
-      <stop offset="30%" stop-color="#ffe066"/>
-      <stop offset="60%" stop-color="#ff9533"/>
-      <stop offset="100%" stop-color="#e64d00"/>
-    </radialGradient>
-    
-    <!-- Gradient for candle body -->
-    <linearGradient id="candleGradient" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#f8f6f0"/>
-      <stop offset="50%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#f0ede6"/>
-    </linearGradient>
-    
-    <!-- Gradient for base -->
-    <linearGradient id="baseGradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#8d8d8d"/>
-      <stop offset="50%" stop-color="#666666"/>
-      <stop offset="100%" stop-color="#4a4a4a"/>
-    </linearGradient>
-  </defs>
-  
-  <!-- Flame glow effect -->
-  <ellipse cx="32" cy="12" rx="8" ry="12" fill="#ffe066" opacity="0.3"/>
-  
-  <!-- Main flame -->
-  <path d="M32 22 C28 18, 26 14, 26 10 C26 6, 28 4, 32 4 C36 4, 38 6, 38 10 C38 14, 36 18, 32 22 Z" 
-        fill="url(#flameGradient)" opacity="0.95"/>
-  
-  <!-- Inner flame highlight -->
-  <ellipse cx="32" cy="10" rx="3" ry="6" fill="#fff9e6" opacity="0.8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Flame -->
+  <ellipse cx="16" cy="4" rx="3" ry="5" fill="#ff6b35"/>
+  <ellipse cx="16" cy="4" rx="2" ry="3.5" fill="#ffb347"/>
   
   <!-- Wick -->
-  <rect x="31" y="19" width="2" height="6" rx="1" fill="#2c2c2c"/>
+  <rect x="15.5" y="8" width="1" height="2" fill="#333"/>
   
   <!-- Candle body -->
-  <rect x="24" y="25" width="16" height="28" rx="2" fill="url(#candleGradient)" stroke="#e6e6e6" stroke-width="0.5"/>
+  <rect x="12" y="10" width="8" height="16" rx="1" fill="#f5f5f5"/>
   
-  <!-- Wax drips -->
-  <ellipse cx="23" cy="32" rx="2" ry="4" fill="#f0ede6" opacity="0.8"/>
-  <ellipse cx="41" cy="36" rx="1.5" ry="3" fill="#f0ede6" opacity="0.8"/>
-  <ellipse cx="22" cy="42" rx="1" ry="2" fill="#f0ede6" opacity="0.6"/>
+  <!-- Simple wax drip -->
+  <ellipse cx="11.5" cy="14" rx="0.8" ry="1.5" fill="#eeeeee"/>
   
-  <!-- Candle base/holder -->
-  <rect x="20" y="53" width="24" height="8" rx="3" fill="url(#baseGradient)"/>
+  <!-- Base -->
+  <rect x="10" y="26" width="12" height="4" rx="1" fill="#666"/>
   
-  <!-- Base details -->
-  <rect x="20" y="54" width="24" height="2" rx="1" fill="#a6a6a6"/>
-  <circle cx="32" cy="57" r="8" fill="none" stroke="#595959" stroke-width="0.8" opacity="0.7"/>
-  
-  <!-- Subtle highlights on candle -->
-  <rect x="26" y="25" width="2" height="28" rx="1" fill="#ffffff" opacity="0.3"/>
+  <!-- Base rim -->
+  <rect x="10" y="26" width="12" height="1" fill="#888"/>
 </svg> 

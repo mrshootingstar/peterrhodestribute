@@ -13,12 +13,12 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get approved tributes ordered by approval date (most recent first)
+    // Get approved tributes ordered by creation date (most recent first)
     const result = await env.DB.prepare(`
       SELECT id, name, message, image_url, created_at, approved_at
       FROM tributes 
       WHERE approved = true 
-      ORDER BY approved_at DESC, created_at DESC
+      ORDER BY created_at DESC
     `).all();
 
     return NextResponse.json({

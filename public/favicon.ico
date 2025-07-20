@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <!-- Flame -->
-  <ellipse cx="16" cy="4" rx="3" ry="5" fill="#ff6b35"/>
-  <ellipse cx="16" cy="4" rx="2" ry="3.5" fill="#ffb347"/>
-  
-  <!-- Wick -->
-  <rect x="15.5" y="8" width="1" height="2" fill="#333"/>
-  
-  <!-- Candle body -->
-  <rect x="12" y="10" width="8" height="16" rx="1" fill="#f5f5f5"/>
-  
-  <!-- Simple wax drip -->
-  <ellipse cx="11.5" cy="14" rx="0.8" ry="1.5" fill="#eeeeee"/>
-  
-  <!-- Base -->
-  <rect x="10" y="26" width="12" height="4" rx="1" fill="#666"/>
-  
-  <!-- Base rim -->
-  <rect x="10" y="26" width="12" height="1" fill="#888"/>
+  <text x="16" y="20" font-size="20" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif">🕯️</text>
 </svg> 

@@ -1,1 +1,24 @@
- 
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Flame -->
+  <ellipse cx="32" cy="8" rx="6" ry="10" fill="#ff6b35" opacity="0.9"/>
+  <ellipse cx="32" cy="8" rx="4" ry="7" fill="#ffb347"/>
+  <ellipse cx="32" cy="8" rx="2" ry="4" fill="#fff3cd"/>
+  
+  <!-- Wick -->
+  <rect x="31" y="15" width="2" height="4" fill="#4a4a4a"/>
+  
+  <!-- Candle body -->
+  <rect x="26" y="19" width="12" height="32" rx="1" fill="#f8f9fa"/>
+  
+  <!-- Wax drips -->
+  <ellipse cx="25" cy="28" rx="1.5" ry="3" fill="#e9ecef"/>
+  <ellipse cx="39" cy="32" rx="1.5" ry="2" fill="#e9ecef"/>
+  
+  <!-- Base -->
+  <rect x="22" y="51" width="20" height="8" rx="2" fill="#6c757d"/>
+  
+  <!-- Candle holder details -->
+  <rect x="22" y="52" width="20" height="2" fill="#495057"/>
+  <circle cx="32" cy="55" r="6" fill="none" stroke="#495057" stroke-width="0.5"/>
+</svg> 

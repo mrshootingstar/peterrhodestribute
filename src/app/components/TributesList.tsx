@@ -104,7 +104,7 @@ export function TributesList() {
             
             <blockquote className="relative">
               <div className="absolute -top-2 -left-2 text-5xl text-blue-400/30 font-serif">&ldquo;</div>
-              <TributeMessage message={tribute.message} maxLines={7} />
+              <TributeMessage message={tribute.message} maxLines={8} />
             </blockquote>
             
             <footer className="mt-8 pt-6 border-t border-gray-700">

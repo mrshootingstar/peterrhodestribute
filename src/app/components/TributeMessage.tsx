@@ -7,7 +7,7 @@ interface TributeMessageProps {
   maxLines?: number;
 }
 
-export function TributeMessage({ message, maxLines = 7 }: TributeMessageProps) {
+export function TributeMessage({ message, maxLines = 8 }: TributeMessageProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [shouldShowReadMore, setShouldShowReadMore] = useState(false);
   const messageRef = useRef<HTMLParagraphElement>(null);
@@ -33,7 +33,7 @@ export function TributeMessage({ message, maxLines = 7 }: TributeMessageProps) {
     <div className="relative">
       <div 
         className={`relative overflow-hidden transition-all duration-500 ease-in-out ${
-          !isExpanded && shouldShowReadMore ? 'max-h-[12em]' : ''
+          !isExpanded && shouldShowReadMore ? 'max-h-[14em]' : ''
         }`}
       >
         <p 
@@ -43,9 +43,9 @@ export function TributeMessage({ message, maxLines = 7 }: TributeMessageProps) {
           {message}
         </p>
         
-        {/* Fade overlay when collapsed */}
+        {/* Fade overlay when collapsed - covers last 3 lines only */}
         {!isExpanded && shouldShowReadMore && (
-          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-gray-800 via-gray-800/95 via-gray-800/85 via-gray-800/60 via-gray-800/30 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-800 via-gray-800/90 via-gray-800/60 to-transparent pointer-events-none" />
         )}
       </div>
       

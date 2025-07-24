@@ -45,27 +45,38 @@ export function TributeMessage({ message, maxLines = 5 }: TributeMessageProps) {
         
         {/* Fade overlay when collapsed */}
         {!isExpanded && shouldShowReadMore && (
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-800 via-gray-800/80 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-gray-800 via-gray-800/90 to-transparent pointer-events-none" />
         )}
       </div>
       
       {shouldShowReadMore && (
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="mt-4 text-blue-400 hover:text-blue-300 transition-colors duration-200 text-lg font-medium flex items-center space-x-2 group"
-        >
-          <span>{isExpanded ? 'Show less' : 'Read more'}</span>
-          <svg 
-            className={`w-4 h-4 transition-transform duration-200 ${
-              isExpanded ? 'rotate-180' : ''
-            } group-hover:translate-x-1`} 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
+        <div className="relative">
+          {/* More prominent visual indicator */}
+          {!isExpanded && (
+            <div className="absolute -top-2 left-8 right-8 text-center">
+              <div className="inline-flex items-center space-x-1 text-blue-400/70 text-sm">
+                <span>•••</span>
+              </div>
+            </div>
+          )}
+          
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="mt-3 w-full bg-blue-500/10 hover:bg-blue-500/20 border border-blue-400/30 hover:border-blue-400/50 text-blue-400 hover:text-blue-300 transition-all duration-200 text-lg font-medium py-3 px-4 rounded-xl flex items-center justify-center space-x-2 group"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+            <span>{isExpanded ? 'Show less' : 'Continue reading'}</span>
+            <svg 
+              className={`w-4 h-4 transition-transform duration-200 ${
+                isExpanded ? 'rotate-180' : ''
+              } group-hover:translate-x-1`} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       )}
     </div>
   );

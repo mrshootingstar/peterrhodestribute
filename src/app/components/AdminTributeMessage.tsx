@@ -108,9 +108,9 @@ export function AdminTributeMessage({
           onClick={() => setIsExpanded(!isExpanded)}
           className="mt-3 w-full bg-blue-50 hover:bg-blue-100 border border-blue-200 hover:border-blue-300 text-blue-600 hover:text-blue-700 transition-all duration-200 text-sm font-medium py-2 px-3 rounded-lg flex items-center justify-center space-x-1 group"
         >
-          <span>
-            {isExpanded ? 'Show less' : `Continue reading (${currentMaxLines} lines shown)`}
-          </span>
+                     <span>
+             {isExpanded ? 'Show less' : 'Continue reading'}
+           </span>
           <svg 
             className={`w-3 h-3 transition-transform duration-200 ${
               isExpanded ? 'rotate-180' : ''

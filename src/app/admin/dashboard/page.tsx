@@ -32,7 +32,7 @@ export default function AdminDashboard() {
   const [isExporting, setIsExporting] = useState(false);
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(25);
+  const pageSize = 25; // Fixed at 25 tributes per page
   const router = useRouter();
 
   useEffect(() => {
@@ -168,10 +168,7 @@ export default function AdminDashboard() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handlePageSizeChange = (newPageSize: number) => {
-    setPageSize(newPageSize);
-    setCurrentPage(1); // Reset to first page when page size changes
-  };
+
 
   if (loading) {
     return (
@@ -289,61 +286,40 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Filter Buttons and Page Size Selector */}
+        {/* Filter Buttons */}
         <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200 mb-8">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-700 mb-4">Filter Tributes</h3>
-              <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={() => setFilter('all')}
-                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                    filter === 'all'
-                      ? 'bg-blue-600 text-white shadow-lg scale-105'
-                      : 'bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200'
-                  }`}
-                >
-                  All Tributes ({tributes.length})
-                </button>
-                <button
-                  onClick={() => setFilter('pending')}
-                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                    filter === 'pending'
-                      ? 'bg-orange-600 text-white shadow-lg scale-105'
-                      : 'bg-orange-50 text-orange-600 hover:bg-orange-100 border border-orange-200'
-                  }`}
-                >
-                  Pending Review ({pendingTributes.length})
-                </button>
-                <button
-                  onClick={() => setFilter('approved')}
-                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                    filter === 'approved'
-                      ? 'bg-green-600 text-white shadow-lg scale-105'
-                      : 'bg-green-50 text-green-600 hover:bg-green-100 border border-green-200'
-                  }`}
-                >
-                  Approved ({approvedTributes.length})
-                </button>
-              </div>
-            </div>
-            
-            {/* Page Size Selector */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <label className="text-sm font-medium text-slate-700 whitespace-nowrap">
-                Tributes per page:
-              </label>
-              <select
-                value={pageSize}
-                onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-                className="px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-slate-700 font-medium"
-              >
-                <option value={10}>10</option>
-                <option value={25}>25</option>
-                <option value={50}>50</option>
-                <option value={100}>100</option>
-              </select>
-            </div>
+          <h3 className="text-lg font-semibold text-slate-700 mb-4">Filter Tributes</h3>
+          <div className="flex flex-wrap gap-3">
+            <button
+              onClick={() => setFilter('all')}
+              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                filter === 'all'
+                  ? 'bg-blue-600 text-white shadow-lg scale-105'
+                  : 'bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200'
+              }`}
+            >
+              All Tributes ({tributes.length})
+            </button>
+            <button
+              onClick={() => setFilter('pending')}
+              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                filter === 'pending'
+                  ? 'bg-orange-600 text-white shadow-lg scale-105'
+                  : 'bg-orange-50 text-orange-600 hover:bg-orange-100 border border-orange-200'
+              }`}
+            >
+              Pending Review ({pendingTributes.length})
+            </button>
+            <button
+              onClick={() => setFilter('approved')}
+              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                filter === 'approved'
+                  ? 'bg-green-600 text-white shadow-lg scale-105'
+                  : 'bg-green-50 text-green-600 hover:bg-green-100 border border-green-200'
+              }`}
+            >
+              Approved ({approvedTributes.length})
+            </button>
           </div>
         </div>
 

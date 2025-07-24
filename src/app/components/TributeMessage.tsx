@@ -45,7 +45,7 @@ export function TributeMessage({ message, maxLines = 7 }: TributeMessageProps) {
         
         {/* Fade overlay when collapsed */}
         {!isExpanded && shouldShowReadMore && (
-          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-gray-800 via-gray-800/90 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-800 via-gray-800/95 via-gray-800/80 to-transparent pointer-events-none" />
         )}
       </div>
       

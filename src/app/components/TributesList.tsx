@@ -55,11 +55,13 @@ export function TributesList() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // Scroll to beginning of tributes section when page changes
-    const tributesSection = document.getElementById('tributes-section');
-    if (tributesSection) {
-      tributesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // Scroll to the first tribute on the new page
+    setTimeout(() => {
+      const tributesList = document.getElementById('tributes-list');
+      if (tributesList) {
+        tributesList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100); // Small delay to ensure the new content is rendered
   };
 
   if (loading) {
@@ -100,7 +102,7 @@ export function TributesList() {
       )}
 
       {/* Tributes List */}
-      <div className="space-y-8">
+      <div id="tributes-list" className="space-y-8">
         {currentTributes.map((tribute) => (
           <article
             key={tribute.id}

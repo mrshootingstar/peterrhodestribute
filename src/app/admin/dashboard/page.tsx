@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { TributeExporter } from '../../components/TributeExporter';
-import { AdminTributeMessage } from '../../components/AdminTributeMessage';
+
 
 interface Tribute {
   id: number;
@@ -403,7 +403,7 @@ function TributeCard({
           )}
 
           <div className="bg-slate-50 rounded-xl p-4 mb-4">
-            <AdminTributeMessage message={tribute.message} maxLines={4} />
+            <p className="text-slate-800 whitespace-pre-wrap leading-relaxed">{tribute.message}</p>
           </div>
 
           {tribute.admin_notes && (

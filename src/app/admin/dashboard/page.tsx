@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { TributeExporter } from '../../components/TributeExporter';
+import { AdminTributeMessage } from '../../components/AdminTributeMessage';
 
 
 interface Tribute {
@@ -29,11 +30,19 @@ export default function AdminDashboard() {
   const [filter, setFilter] = useState<FilterType>('all');
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(25);
   const router = useRouter();
 
   useEffect(() => {
     fetchTributes();
   }, []);
+
+  // Reset to page 1 when filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filter]);
 
   const fetchTributes = async () => {
     try {
@@ -145,6 +154,24 @@ export default function AdminDashboard() {
   };
 
   const filteredTributes = getFilteredTributes();
+  
+  // Pagination logic
+  const totalTributes = filteredTributes.length;
+  const totalPages = Math.ceil(totalTributes / pageSize);
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const currentTributes = filteredTributes.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // Scroll to top when page changes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageSize(newPageSize);
+    setCurrentPage(1); // Reset to first page when page size changes
+  };
 
   if (loading) {
     return (
@@ -262,45 +289,135 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Filter Buttons */}
+        {/* Filter Buttons and Page Size Selector */}
         <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200 mb-8">
-          <h3 className="text-lg font-semibold text-slate-700 mb-4">Filter Tributes</h3>
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => setFilter('all')}
-              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                filter === 'all'
-                  ? 'bg-blue-600 text-white shadow-lg scale-105'
-                  : 'bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200'
-              }`}
-            >
-              All Tributes ({tributes.length})
-            </button>
-            <button
-              onClick={() => setFilter('pending')}
-              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                filter === 'pending'
-                  ? 'bg-orange-600 text-white shadow-lg scale-105'
-                  : 'bg-orange-50 text-orange-600 hover:bg-orange-100 border border-orange-200'
-              }`}
-            >
-              Pending Review ({pendingTributes.length})
-            </button>
-            <button
-              onClick={() => setFilter('approved')}
-              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                filter === 'approved'
-                  ? 'bg-green-600 text-white shadow-lg scale-105'
-                  : 'bg-green-50 text-green-600 hover:bg-green-100 border border-green-200'
-              }`}
-            >
-              Approved ({approvedTributes.length})
-            </button>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div>
+              <h3 className="text-lg font-semibold text-slate-700 mb-4">Filter Tributes</h3>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={() => setFilter('all')}
+                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                    filter === 'all'
+                      ? 'bg-blue-600 text-white shadow-lg scale-105'
+                      : 'bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200'
+                  }`}
+                >
+                  All Tributes ({tributes.length})
+                </button>
+                <button
+                  onClick={() => setFilter('pending')}
+                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                    filter === 'pending'
+                      ? 'bg-orange-600 text-white shadow-lg scale-105'
+                      : 'bg-orange-50 text-orange-600 hover:bg-orange-100 border border-orange-200'
+                  }`}
+                >
+                  Pending Review ({pendingTributes.length})
+                </button>
+                <button
+                  onClick={() => setFilter('approved')}
+                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                    filter === 'approved'
+                      ? 'bg-green-600 text-white shadow-lg scale-105'
+                      : 'bg-green-50 text-green-600 hover:bg-green-100 border border-green-200'
+                  }`}
+                >
+                  Approved ({approvedTributes.length})
+                </button>
+              </div>
+            </div>
+            
+            {/* Page Size Selector */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <label className="text-sm font-medium text-slate-700 whitespace-nowrap">
+                Tributes per page:
+              </label>
+              <select
+                value={pageSize}
+                onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+                className="px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-slate-700 font-medium"
+              >
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
           </div>
         </div>
 
+        {/* Pagination Info and Controls */}
+        {filteredTributes.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="text-slate-700">
+                <span className="font-medium">
+                  Showing {startIndex + 1}-{Math.min(endIndex, totalTributes)} of {totalTributes} tributes
+                </span>
+                {filter !== 'all' && (
+                  <span className="text-slate-500 ml-2">
+                    ({filter === 'pending' ? 'pending review' : 'approved'})
+                  </span>
+                )}
+              </div>
+              
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="px-3 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Previous
+                  </button>
+                  
+                  <div className="flex items-center space-x-1">
+                    {/* Show page numbers */}
+                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                      let pageNumber;
+                      if (totalPages <= 5) {
+                        pageNumber = i + 1;
+                      } else if (currentPage <= 3) {
+                        pageNumber = i + 1;
+                      } else if (currentPage >= totalPages - 2) {
+                        pageNumber = totalPages - 4 + i;
+                      } else {
+                        pageNumber = currentPage - 2 + i;
+                      }
+                      
+                      return (
+                        <button
+                          key={pageNumber}
+                          onClick={() => handlePageChange(pageNumber)}
+                          className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                            currentPage === pageNumber
+                              ? 'bg-blue-600 text-white'
+                              : 'text-slate-600 bg-white border border-slate-300 hover:bg-slate-50'
+                          }`}
+                        >
+                          {pageNumber}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="px-3 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Filtered Tributes Display */}
-        {filteredTributes.length > 0 ? (
+        {currentTributes.length > 0 ? (
           <div>
             <h2 className="text-2xl font-bold text-slate-800 mb-6">
               {filter === 'all' && `All Tributes (${filteredTributes.length})`}
@@ -308,7 +425,7 @@ export default function AdminDashboard() {
               {filter === 'approved' && `Approved Tributes (${filteredTributes.length})`}
             </h2>
             <div className="space-y-6">
-              {filteredTributes.map((tribute) => (
+              {currentTributes.map((tribute) => (
                 <TributeCard
                   key={tribute.id}
                   tribute={tribute}
@@ -319,6 +436,60 @@ export default function AdminDashboard() {
                 />
               ))}
             </div>
+            
+            {/* Bottom Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="mt-8 flex justify-center">
+                <div className="bg-white rounded-2xl shadow-lg p-4 border border-slate-200">
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                      Previous
+                    </button>
+                    
+                    <div className="flex items-center space-x-1">
+                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                        let pageNumber;
+                        if (totalPages <= 5) {
+                          pageNumber = i + 1;
+                        } else if (currentPage <= 3) {
+                          pageNumber = i + 1;
+                        } else if (currentPage >= totalPages - 2) {
+                          pageNumber = totalPages - 4 + i;
+                        } else {
+                          pageNumber = currentPage - 2 + i;
+                        }
+                        
+                        return (
+                          <button
+                            key={pageNumber}
+                            onClick={() => handlePageChange(pageNumber)}
+                            className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                              currentPage === pageNumber
+                                ? 'bg-blue-600 text-white'
+                                : 'text-slate-600 bg-white border border-slate-300 hover:bg-slate-50'
+                            }`}
+                          >
+                            {pageNumber}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div className="text-center py-12">
@@ -403,7 +574,17 @@ function TributeCard({
           )}
 
           <div className="bg-slate-50 rounded-xl p-4 mb-4">
-            <p className="text-slate-800 whitespace-pre-wrap leading-relaxed">{tribute.message}</p>
+            {/* 
+              Responsive message truncation:
+              - Mobile (< 768px): Shows 12 lines before truncating (more words visible)
+              - Desktop (≥ 768px): Shows 6 lines before truncating (standard for wider screens)
+              This ensures appropriate content visibility across different screen sizes
+            */}
+            <AdminTributeMessage 
+              message={tribute.message}
+              mobileMaxLines={12}    // More lines on mobile since each line has fewer words
+              desktopMaxLines={6}    // Standard lines on desktop since each line has more words
+            />
           </div>
 
           {tribute.admin_notes && (

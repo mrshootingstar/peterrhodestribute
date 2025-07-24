@@ -30,19 +30,13 @@ export default function AdminDashboard() {
   const [filter, setFilter] = useState<FilterType>('all');
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
-  // Pagination state
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 25; // Fixed at 25 tributes per page
   const router = useRouter();
 
   useEffect(() => {
     fetchTributes();
   }, []);
 
-  // Reset to page 1 when filter changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filter]);
+
 
   const fetchTributes = async () => {
     try {
@@ -154,19 +148,6 @@ export default function AdminDashboard() {
   };
 
   const filteredTributes = getFilteredTributes();
-  
-  // Pagination logic
-  const totalTributes = filteredTributes.length;
-  const totalPages = Math.ceil(totalTributes / pageSize);
-  const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const currentTributes = filteredTributes.slice(startIndex, endIndex);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    // Scroll to top when page changes
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
 
 
@@ -323,77 +304,10 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Pagination Info and Controls */}
-        {filteredTributes.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200 mb-8">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div className="text-slate-700">
-                <span className="font-medium">
-                  Showing {startIndex + 1}-{Math.min(endIndex, totalTributes)} of {totalTributes} tributes
-                </span>
-                {filter !== 'all' && (
-                  <span className="text-slate-500 ml-2">
-                    ({filter === 'pending' ? 'pending review' : 'approved'})
-                  </span>
-                )}
-              </div>
-              
-              {/* Pagination Controls */}
-              {totalPages > 1 && (
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="px-3 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  >
-                    Previous
-                  </button>
-                  
-                  <div className="flex items-center space-x-1">
-                    {/* Show page numbers */}
-                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                      let pageNumber;
-                      if (totalPages <= 5) {
-                        pageNumber = i + 1;
-                      } else if (currentPage <= 3) {
-                        pageNumber = i + 1;
-                      } else if (currentPage >= totalPages - 2) {
-                        pageNumber = totalPages - 4 + i;
-                      } else {
-                        pageNumber = currentPage - 2 + i;
-                      }
-                      
-                      return (
-                        <button
-                          key={pageNumber}
-                          onClick={() => handlePageChange(pageNumber)}
-                          className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                            currentPage === pageNumber
-                              ? 'bg-blue-600 text-white'
-                              : 'text-slate-600 bg-white border border-slate-300 hover:bg-slate-50'
-                          }`}
-                        >
-                          {pageNumber}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="px-3 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  >
-                    Next
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+
 
         {/* Filtered Tributes Display */}
-        {currentTributes.length > 0 ? (
+        {filteredTributes.length > 0 ? (
           <div>
             <h2 className="text-2xl font-bold text-slate-800 mb-6">
               {filter === 'all' && `All Tributes (${filteredTributes.length})`}
@@ -401,7 +315,7 @@ export default function AdminDashboard() {
               {filter === 'approved' && `Approved Tributes (${filteredTributes.length})`}
             </h2>
             <div className="space-y-6">
-              {currentTributes.map((tribute) => (
+              {filteredTributes.map((tribute) => (
                 <TributeCard
                   key={tribute.id}
                   tribute={tribute}
@@ -412,60 +326,6 @@ export default function AdminDashboard() {
                 />
               ))}
             </div>
-            
-            {/* Bottom Pagination Controls */}
-            {totalPages > 1 && (
-              <div className="mt-8 flex justify-center">
-                <div className="bg-white rounded-2xl shadow-lg p-4 border border-slate-200">
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
-                      className="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                    >
-                      Previous
-                    </button>
-                    
-                    <div className="flex items-center space-x-1">
-                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                        let pageNumber;
-                        if (totalPages <= 5) {
-                          pageNumber = i + 1;
-                        } else if (currentPage <= 3) {
-                          pageNumber = i + 1;
-                        } else if (currentPage >= totalPages - 2) {
-                          pageNumber = totalPages - 4 + i;
-                        } else {
-                          pageNumber = currentPage - 2 + i;
-                        }
-                        
-                        return (
-                          <button
-                            key={pageNumber}
-                            onClick={() => handlePageChange(pageNumber)}
-                            className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                              currentPage === pageNumber
-                                ? 'bg-blue-600 text-white'
-                                : 'text-slate-600 bg-white border border-slate-300 hover:bg-slate-50'
-                            }`}
-                          >
-                            {pageNumber}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    
-                    <button
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                      className="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                    >
-                      Next
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         ) : (
           <div className="text-center py-12">

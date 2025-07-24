@@ -55,8 +55,11 @@ export function TributesList() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // Scroll to top when page changes
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll to beginning of tributes section when page changes
+    const tributesSection = document.getElementById('tributes-section');
+    if (tributesSection) {
+      tributesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   if (loading) {
@@ -84,7 +87,7 @@ export function TributesList() {
   }
 
   return (
-    <div>
+    <div id="tributes-section">
       {/* Pagination Info */}
       {totalPages > 1 && (
         <div className="text-center mb-8">

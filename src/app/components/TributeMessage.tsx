@@ -12,11 +12,12 @@ interface TributeMessageProps {
 export function TributeMessage({ 
   message, 
   mobileMaxLines = 15,    // More lines on mobile since each line has fewer words
-  desktopMaxLines = 8     // Fewer lines on desktop since each line has more words
+  desktopMaxLines = 15    // Same generous line count on desktop for better public reading experience
 }: TributeMessageProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [shouldShowReadMore, setShouldShowReadMore] = useState(false);
   const [currentMaxLines, setCurrentMaxLines] = useState(desktopMaxLines);
+  const [computedHeight, setComputedHeight] = useState<string>('');
   const messageRef = useRef<HTMLParagraphElement>(null);
 
   // Responsive truncation logic: Determine appropriate maxLines based on screen size
@@ -45,30 +46,44 @@ export function TributeMessage({
     const checkIfTruncated = () => {
       if (messageRef.current) {
         // Calculate the expected height based on line height and max lines
-        const lineHeight = parseInt(getComputedStyle(messageRef.current).lineHeight);
-        const maxHeight = lineHeight * currentMaxLines;
+        const computedStyle = getComputedStyle(messageRef.current);
+        const lineHeight = parseFloat(computedStyle.lineHeight);
+        const fontSize = parseFloat(computedStyle.fontSize);
+        
+        // Handle cases where line-height is "normal" or other non-numeric values
+        const actualLineHeight = isNaN(lineHeight) ? fontSize * 1.625 : lineHeight; // 1.625 is leading-relaxed
+        const maxHeight = actualLineHeight * currentMaxLines;
         
         // Compare with actual content height to determine if truncation is needed
         const actualHeight = messageRef.current.scrollHeight;
         setShouldShowReadMore(actualHeight > maxHeight);
+        
+        // Update computed height for inline styles (more reliable than dynamic Tailwind classes)
+        const maxHeightPx = actualLineHeight * currentMaxLines;
+        setComputedHeight(`${maxHeightPx}px`);
       }
     };
 
     // Recheck whenever maxLines, message, or screen size changes
-    checkIfTruncated();
+    // Add small delay to ensure styles are computed
+    const timeoutId = setTimeout(checkIfTruncated, 10);
     
     // Also recheck on window resize for responsive behavior
     window.addEventListener('resize', checkIfTruncated);
-    return () => window.removeEventListener('resize', checkIfTruncated);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', checkIfTruncated);
+    };
   }, [currentMaxLines, message]);
 
-  // Dynamic height calculation for smooth transitions
-  // Mobile gets more height since it shows more lines before truncating
-  const getMaxHeight = () => {
-    if (currentMaxLines === mobileMaxLines) {
-      return 'max-h-[22.5em]'; // Mobile: ~22.5em for 15 lines
+  // Get inline style object for max height
+  const getMaxHeightStyle = () => {
+    if (computedHeight) {
+      return { maxHeight: computedHeight };
     }
-    return 'max-h-[14em]';     // Desktop: ~14em for 8 lines
+    // Fallback to reasonable estimates
+    const estimatedLineHeightEm = currentMaxLines === mobileMaxLines ? 1.5 : 1.75;
+    return { maxHeight: `${currentMaxLines * estimatedLineHeightEm}em` };
   };
 
   // Dynamic fade overlay height - taller on mobile for better visibility
@@ -83,9 +98,8 @@ export function TributeMessage({
     <div className="relative">
       {/* Message container with responsive truncation */}
       <div 
-        className={`relative overflow-hidden transition-all duration-500 ease-in-out ${
-          !isExpanded && shouldShowReadMore ? getMaxHeight() : ''
-        }`}
+        className="relative overflow-hidden transition-all duration-500 ease-in-out"
+        style={!isExpanded && shouldShowReadMore ? getMaxHeightStyle() : {}}
       >
         <p 
           ref={messageRef}

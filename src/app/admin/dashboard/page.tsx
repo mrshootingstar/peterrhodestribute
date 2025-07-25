@@ -411,15 +411,11 @@ function TributeCard({
 
           <div className="bg-slate-50 rounded-xl p-4 mb-4">
             {/* 
-              Responsive message truncation:
-              - Mobile (< 768px): Shows 12 lines before truncating (more words visible)
-              - Desktop (≥ 768px): Shows 6 lines before truncating (standard for wider screens)
-              This ensures appropriate content visibility across different screen sizes
+              Admin view shows complete tribute content without truncation.
+              Admins need to read the full message to make informed approval decisions.
             */}
             <AdminTributeMessage 
               message={tribute.message}
-              mobileMaxLines={12}    // More lines on mobile since each line has fewer words
-              desktopMaxLines={6}    // Standard lines on desktop since each line has more words
             />
           </div>
 

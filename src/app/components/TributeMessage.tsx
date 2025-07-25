@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 
 interface TributeMessageProps {
   message: string;
@@ -42,7 +42,8 @@ export function TributeMessage({
   }, [mobileMaxLines, desktopMaxLines]);
 
   // Truncation detection: Check if message content exceeds the current line limit
-  useEffect(() => {
+  // Using useLayoutEffect to run synchronously before paint to avoid layout shifts
+  useLayoutEffect(() => {
     const checkIfTruncated = () => {
       if (messageRef.current) {
         // Calculate the expected height based on line height and max lines
@@ -64,16 +65,12 @@ export function TributeMessage({
       }
     };
 
-    // Recheck whenever maxLines, message, or screen size changes
-    // Add small delay to ensure styles are computed
-    const timeoutId = setTimeout(checkIfTruncated, 10);
+    // Run immediately without delay for better UX
+    checkIfTruncated();
     
     // Also recheck on window resize for responsive behavior
     window.addEventListener('resize', checkIfTruncated);
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', checkIfTruncated);
-    };
+    return () => window.removeEventListener('resize', checkIfTruncated);
   }, [currentMaxLines, message]);
 
   // Get inline style object for max height

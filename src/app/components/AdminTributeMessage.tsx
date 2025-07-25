@@ -1,7 +1,5 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-
 interface AdminTributeMessageProps {
   message: string;
 }

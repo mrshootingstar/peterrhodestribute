@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { sendEmailToAdmins, generateTributeNotificationEmail } from '../../utils/email';
 
 export const runtime = 'edge';
 
@@ -89,6 +90,31 @@ export async function POST(request: NextRequest) {
           imageUrl,
           false // Requires admin approval
         ).run();
+
+        // Send email notification to admins
+        const tribute = {
+          name: anonymous ? 'Anonymous' : name,
+          message,
+          email: email || undefined,
+          phone: phone || undefined,
+          image_url: imageUrl || undefined,
+          created_at: new Date().toISOString()
+        };
+
+        try {
+          const emailResult = await sendEmailToAdmins(
+            `New Tribute Submission from ${tribute.name}`,
+            generateTributeNotificationEmail(tribute)
+          );
+
+          if (!emailResult.success) {
+            console.error('Failed to send admin notification email:', emailResult.error);
+            // Don't fail the tribute submission if email fails
+          }
+        } catch (emailError) {
+          console.error('Error sending admin notification email:', emailError);
+          // Don't fail the tribute submission if email fails
+        }
 
         return NextResponse.json({
           success: true,

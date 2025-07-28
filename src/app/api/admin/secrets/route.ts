@@ -38,11 +38,21 @@ export async function GET(request: NextRequest) {
 
     const env = process.env as any;
 
-    return NextResponse.json({
+    // Debug logging
+    console.log('Debug - Environment variables check:');
+    console.log('ADMIN_EMAIL exists:', !!env.ADMIN_EMAIL);
+    console.log('FROM_EMAIL exists:', !!env.FROM_EMAIL);
+    console.log('RESEND_API_KEY exists:', !!env.RESEND_API_KEY);
+
+    const response = {
       resendApiKey: env.RESEND_API_KEY ? '******' + env.RESEND_API_KEY.slice(-4) : 'Not Set',
       adminEmail: env.ADMIN_EMAIL || 'Not Set',
       fromEmail: env.FROM_EMAIL || 'Not Set'
-    });
+    };
+
+    console.log('Debug - API response:', response);
+
+    return NextResponse.json(response);
 
   } catch (error) {
     console.error('Error fetching admin secrets:', error);

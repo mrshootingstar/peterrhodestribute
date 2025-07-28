@@ -302,7 +302,7 @@ export default function AdminDashboard() {
           ) : secrets ? (
                          <div className="space-y-3">
                <div className="flex justify-between items-center">
-                 <p className="text-slate-600">Admin Email:</p>
+                 <p className="text-slate-600">Admin Emails:</p>
                  <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.adminEmail}</p>
                </div>
                <div className="flex justify-between items-center">

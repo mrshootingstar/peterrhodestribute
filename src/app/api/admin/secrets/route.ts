@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { getAdminNotificationEmails, getSenderEmailAddress } from '../../../utils/email';
+import { getAdminEmails, getSenderEmailAddress } from '../../../utils/email';
 
 export const runtime = 'edge';
 
@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
 
     const systemConfig = {
       resendApiKey: env.RESEND_API_KEY ? '******' + env.RESEND_API_KEY.slice(-4) : 'Not Set',
-      adminEmail: getAdminNotificationEmails(),
+      adminEmail: getAdminEmails(),
       fromEmail: getSenderEmailAddress()
     };
 

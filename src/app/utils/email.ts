@@ -53,12 +53,12 @@ export function parseAdminEmails(adminEmailString: string): string[] {
 
 // Configuration - UPDATE THESE WITH YOUR ACTUAL EMAIL ADDRESSES
 const ADMIN_NOTIFICATION_EMAILS = 'admin@yourdomain.com'; // Who receives notifications (comma-separated for multiple)
-const SENDER_EMAIL_ADDRESS = 'noreply@yourdomain.com'; // Must be verified in Resend
+const SENDER_EMAIL_ADDRESS = 'noreply@peterrhodestribute.com'; // Must be verified in Resend
 
 /**
- * Get the admin notification emails (for use in other modules)
+ * Get the admin emails (for use in other modules)
  */
-export function getAdminNotificationEmails(): string {
+export function getAdminEmails(): string {
   return ADMIN_NOTIFICATION_EMAILS;
 }
 

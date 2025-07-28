@@ -51,8 +51,8 @@ export function parseAdminEmails(adminEmailString: string): string[] {
 }
 
 // Configuration - UPDATE THESE WITH YOUR ACTUAL EMAIL ADDRESSES
-const ADMIN_NOTIFICATION_EMAILS = 'm.mirghorbani@gmail.com,forwardtomy@gmail.com'; // Who receives notifications (comma-separated for multiple)
-const SENDER_EMAIL_ADDRESS = 'noreply@peterrhodestribute.com'; // Must be verified in Resend
+const ADMIN_NOTIFICATION_EMAILS = 'jeanarhodes@gmail.com,m.mirghorbani@gmail.com';
+const SENDER_EMAIL_ADDRESS = 'noreply@peterrhodestribute.com';
 
 /**
  * Get the admin emails (for use in other modules)

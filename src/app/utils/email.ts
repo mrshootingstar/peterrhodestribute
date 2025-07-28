@@ -1,3 +1,6 @@
+import validator from 'validator';
+import DOMPurify from 'isomorphic-dompurify';
+
 interface EmailOptions {
   to: string | string[];
   subject: string;
@@ -11,16 +14,41 @@ interface AdminEmailConfig {
 }
 
 /**
+ * Validate and sanitize a single email address
+ */
+function validateAndSanitizeEmail(email: string): string | null {
+  if (!email || typeof email !== 'string') return null;
+  
+  // Trim and normalize
+  const trimmedEmail = email.trim().toLowerCase();
+  
+  // Validate email format
+  if (!validator.isEmail(trimmedEmail)) {
+    console.warn(`Invalid email format: ${email}`);
+    return null;
+  }
+  
+  // Additional length check
+  if (trimmedEmail.length > 254) {
+    console.warn(`Email too long: ${email}`);
+    return null;
+  }
+  
+  return trimmedEmail;
+}
+
+/**
  * Parse admin emails from environment variable
  * Supports single email or comma-separated list
+ * Validates and sanitizes all emails
  */
 export function parseAdminEmails(adminEmailString: string): string[] {
   if (!adminEmailString) return [];
   
   return adminEmailString
     .split(',')
-    .map(email => email.trim())
-    .filter(email => email.length > 0);
+    .map(email => validateAndSanitizeEmail(email))
+    .filter((email): email is string => email !== null);
 }
 
 /**
@@ -38,6 +66,18 @@ export function getAdminEmailConfig(): AdminEmailConfig {
 }
 
 /**
+ * Sanitize email content
+ */
+function sanitizeEmailContent(html: string): string {
+  // Sanitize HTML content while preserving email-safe elements
+  return DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: ['p', 'div', 'br', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'ul', 'ol', 'li', 'span', 'table', 'tr', 'td', 'th', 'tbody', 'thead'],
+    ALLOWED_ATTR: ['href', 'target', 'style', 'class'],
+    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
+  });
+}
+
+/**
  * Send email using Resend API
  */
 export async function sendEmail(options: EmailOptions): Promise<{ success: boolean; error?: string }> {
@@ -45,6 +85,27 @@ export async function sendEmail(options: EmailOptions): Promise<{ success: boole
   
   if (!config.resendApiKey) {
     return { success: false, error: 'Resend API key not configured' };
+  }
+
+  // Validate and sanitize email addresses
+  const toEmails = Array.isArray(options.to) ? options.to : [options.to];
+  const sanitizedToEmails = toEmails
+    .map(email => validateAndSanitizeEmail(email))
+    .filter((email): email is string => email !== null);
+
+  if (sanitizedToEmails.length === 0) {
+    return { success: false, error: 'No valid recipient email addresses' };
+  }
+
+  // Sanitize subject and HTML content
+  const sanitizedSubject = validator.escape(options.subject.substring(0, 998)); // Email subject length limit
+  const sanitizedHtml = sanitizeEmailContent(options.html);
+
+  // Validate from email if provided
+  let fromEmail = options.from || 'noreply@yourdomain.com';
+  const sanitizedFromEmail = validateAndSanitizeEmail(fromEmail);
+  if (!sanitizedFromEmail) {
+    return { success: false, error: 'Invalid from email address' };
   }
 
   try {
@@ -55,10 +116,10 @@ export async function sendEmail(options: EmailOptions): Promise<{ success: boole
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: options.from || 'noreply@yourdomain.com', // You'll need to replace with your verified domain
-        to: Array.isArray(options.to) ? options.to : [options.to],
-        subject: options.subject,
-        html: options.html,
+        from: sanitizedFromEmail,
+        to: sanitizedToEmails,
+        subject: sanitizedSubject,
+        html: sanitizedHtml,
       }),
     });
 
@@ -110,6 +171,21 @@ export function generateTributeNotificationEmail(tribute: {
       minute: '2-digit'
     });
   };
+
+  // Sanitize all user-provided content
+  const sanitizedTribute = {
+    name: validator.escape(tribute.name.substring(0, 100)), // Limit name length
+    message: validator.escape(tribute.message.substring(0, 5000)), // Limit message length
+    email: tribute.email ? validator.escape(tribute.email.substring(0, 254)) : undefined,
+    phone: tribute.phone ? validator.escape(tribute.phone.substring(0, 20)) : undefined,
+    image_url: tribute.image_url ? validator.escape(tribute.image_url.substring(0, 500)) : undefined,
+    created_at: tribute.created_at
+  };
+
+  // Validate image URL if provided
+  if (sanitizedTribute.image_url && !validator.isURL(sanitizedTribute.image_url, { protocols: ['http', 'https'] })) {
+    sanitizedTribute.image_url = undefined; // Remove invalid URLs
+  }
 
   return `
     <!DOCTYPE html>
@@ -182,16 +258,16 @@ export function generateTributeNotificationEmail(tribute: {
       
       <div class="content">
         <div class="tribute-details">
-          <p><span class="label">Submitted by:</span> ${tribute.name}</p>
-          <p><span class="label">Date:</span> ${formatDate(tribute.created_at)}</p>
-          ${tribute.email ? `<p><span class="label">Email:</span> ${tribute.email}</p>` : ''}
-          ${tribute.phone ? `<p><span class="label">Phone:</span> ${tribute.phone}</p>` : ''}
-          ${tribute.image_url ? `<p><span class="label">Image:</span> <a href="${tribute.image_url}" target="_blank">View Image</a></p>` : ''}
+          <p><span class="label">Submitted by:</span> ${sanitizedTribute.name}</p>
+          <p><span class="label">Date:</span> ${formatDate(sanitizedTribute.created_at)}</p>
+          ${sanitizedTribute.email ? `<p><span class="label">Email:</span> ${sanitizedTribute.email}</p>` : ''}
+          ${sanitizedTribute.phone ? `<p><span class="label">Phone:</span> ${sanitizedTribute.phone}</p>` : ''}
+          ${sanitizedTribute.image_url ? `<p><span class="label">Image:</span> <a href="${sanitizedTribute.image_url}" target="_blank">View Image</a></p>` : ''}
         </div>
         
         <div class="message">
           <p><span class="label">Message:</span></p>
-          <div>${tribute.message.replace(/\n/g, '<br>')}</div>
+          <div>${sanitizedTribute.message.replace(/\n/g, '<br>')}</div>
         </div>
         
         <p style="text-align: center;">

@@ -13,13 +13,6 @@
 	"observability": {
 		"enabled": true
 	},
-	"env": {
-		"production": {
-			"vars": {
-				"TRIBUTE_NOTIFICATION_EMAILS": "m.mirghorbani@gmail.com,forwardtomy@gmail.com"
-			}
-		}
-	},
 	
 	/**
 	 * Database Bindings

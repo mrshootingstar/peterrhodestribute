@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { v4 as uuidv4 } from 'uuid';
-import { sendTributeNotificationEmail } from '../../utils/email';
 
 export const runtime = 'edge';
 
@@ -80,12 +78,11 @@ export async function POST(request: NextRequest) {
     try {
       const env = process.env as any;
       if (env.DB) {
-        const tributeName = anonymous ? 'Anonymous' : name;
         const result = await env.DB.prepare(`
           INSERT INTO tributes (name, message, email, phone, image_url, approved)
           VALUES (?, ?, ?, ?, ?, ?)
         `).bind(
-          tributeName,
+          anonymous ? 'Anonymous' : name,
           message,
           email || null,
           phone || null,
@@ -93,22 +90,9 @@ export async function POST(request: NextRequest) {
           false // Requires admin approval
         ).run();
 
-        const tributeId = result.meta.last_row_id;
-
-        // Send notification email without awaiting
-        if (tributeId) {
-          sendTributeNotificationEmail({
-            name: tributeName,
-            message,
-            email,
-            phone,
-            imageUrl
-          }, env);
-        }
-
         return NextResponse.json({
           success: true,
-          id: tributeId,
+          id: result.meta.last_row_id,
           message: 'Tribute submitted successfully and pending approval'
         });
       } else {

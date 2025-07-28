@@ -20,10 +20,17 @@ interface Tribute {
   admin_notes?: string;
 }
 
+interface AdminSecrets {
+  resendApiKey: string;
+  adminEmail: string;
+}
+
 type FilterType = 'all' | 'pending' | 'approved';
 
 export default function AdminDashboard() {
   const [tributes, setTributes] = useState<Tribute[]>([]);
+  const [secrets, setSecrets] = useState<AdminSecrets | null>(null);
+  const [secretsError, setSecretsError] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [processingId, setProcessingId] = useState<number | null>(null);
@@ -34,6 +41,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     fetchTributes();
+    fetchSecrets();
   }, []);
 
 
@@ -57,6 +65,22 @@ export default function AdminDashboard() {
       setError('An error occurred while fetching tributes');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchSecrets = async () => {
+    try {
+      const response = await fetch('/api/admin/secrets');
+      if (response.ok) {
+        const data = await response.json() as AdminSecrets;
+        setSecrets(data);
+        setSecretsError('');
+      } else {
+        setSecretsError('Failed to fetch system configuration');
+      }
+    } catch (error) {
+      setSecretsError('Error loading system configuration');
+      console.error('Could not fetch admin secrets', error);
     }
   };
 
@@ -265,6 +289,35 @@ export default function AdminDashboard() {
             <h3 className="text-lg font-semibold text-slate-700">Approved</h3>
             <p className="text-3xl font-bold text-green-600">{approvedTributes.length}</p>
           </div>
+        </div>
+
+        {/* System Configuration */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200 mb-8">
+          <h3 className="text-lg font-semibold text-slate-700 mb-4">System Configuration</h3>
+          {secretsError ? (
+            <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+              <p className="text-red-800 font-medium">{secretsError}</p>
+            </div>
+          ) : secrets ? (
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <p className="text-slate-600">Admin Email:</p>
+                <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.adminEmail}</p>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-slate-600">Resend API Key:</p>
+                <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.resendApiKey}</p>
+              </div>
+              <p className="text-xs text-orange-600 mt-2">
+                ⚠️ The Resend API Key is a secret and should not be fully displayed. This is shown for debugging purposes only.
+              </p>
+            </div>
+          ) : (
+            <div className="text-center py-4">
+              <div className="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2"></div>
+              <p className="text-slate-600">Loading system configuration...</p>
+            </div>
+          )}
         </div>
 
         {/* Filter Buttons */}

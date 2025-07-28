@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { getAdminNotificationEmails, getSenderEmailAddress } from '../../../utils/email';
 
 export const runtime = 'edge';
 
@@ -38,21 +39,13 @@ export async function GET(request: NextRequest) {
 
     const env = process.env as any;
 
-    // Debug logging
-    console.log('Debug - Environment variables check:');
-    console.log('ADMIN_EMAIL exists:', !!env.ADMIN_EMAIL);
-    console.log('FROM_EMAIL exists:', !!env.FROM_EMAIL);
-    console.log('RESEND_API_KEY exists:', !!env.RESEND_API_KEY);
-
-    const response = {
+    const systemConfig = {
       resendApiKey: env.RESEND_API_KEY ? '******' + env.RESEND_API_KEY.slice(-4) : 'Not Set',
-      adminEmail: env.ADMIN_EMAIL || 'Not Set',
-      fromEmail: env.FROM_EMAIL || 'Not Set'
+      adminEmail: getAdminNotificationEmails(),
+      fromEmail: getSenderEmailAddress()
     };
 
-    console.log('Debug - API response:', response);
-
-    return NextResponse.json(response);
+    return NextResponse.json(systemConfig);
 
   } catch (error) {
     console.error('Error fetching admin secrets:', error);

@@ -8,7 +8,7 @@ interface EmailOptions {
   from?: string;
 }
 
-interface AdminEmailConfig {
+interface EmailSystemConfig {
   adminEmails: string[];
   resendApiKey: string;
 }
@@ -51,26 +51,42 @@ export function parseAdminEmails(adminEmailString: string): string[] {
     .filter((email): email is string => email !== null);
 }
 
+// Configuration - UPDATE THESE WITH YOUR ACTUAL EMAIL ADDRESSES
+const ADMIN_NOTIFICATION_EMAILS = 'admin@yourdomain.com'; // Who receives notifications (comma-separated for multiple)
+const SENDER_EMAIL_ADDRESS = 'noreply@yourdomain.com'; // Must be verified in Resend
+
 /**
- * Get admin email configuration from environment
+ * Get the admin notification emails (for use in other modules)
  */
-export function getAdminEmailConfig(): AdminEmailConfig {
+export function getAdminNotificationEmails(): string {
+  return ADMIN_NOTIFICATION_EMAILS;
+}
+
+/**
+ * Get the sender email address (for use in other modules)
+ */
+export function getSenderEmailAddress(): string {
+  return SENDER_EMAIL_ADDRESS;
+}
+
+/**
+ * Get admin email configuration
+ */
+export function getAdminEmailConfig(): EmailSystemConfig {
   const env = process.env as any;
-  const adminEmailString = env.ADMIN_EMAIL || '';
   const resendApiKey = env.RESEND_API_KEY || '';
   
   return {
-    adminEmails: parseAdminEmails(adminEmailString),
+    adminEmails: parseAdminEmails(ADMIN_NOTIFICATION_EMAILS),
     resendApiKey
   };
 }
 
 /**
- * Get the configured from email address
+ * Get the configured sender email address
  */
-export function getFromEmail(): string {
-  const env = process.env as any;
-  return env.FROM_EMAIL || 'noreply@yourdomain.com';
+export function getSenderEmail(): string {
+  return SENDER_EMAIL_ADDRESS;
 }
 
 /**
@@ -109,11 +125,11 @@ export async function sendEmail(options: EmailOptions): Promise<{ success: boole
   const sanitizedSubject = validator.escape(options.subject.substring(0, 998)); // Email subject length limit
   const sanitizedHtml = sanitizeEmailContent(options.html);
 
-  // Validate from email if provided
-  let fromEmail = options.from || getFromEmail();
-  const sanitizedFromEmail = validateAndSanitizeEmail(fromEmail);
-  if (!sanitizedFromEmail) {
-    return { success: false, error: 'Invalid from email address' };
+  // Validate sender email if provided
+  let senderEmail = options.from || getSenderEmail();
+  const sanitizedSenderEmail = validateAndSanitizeEmail(senderEmail);
+  if (!sanitizedSenderEmail) {
+    return { success: false, error: 'Invalid sender email address' };
   }
 
   try {
@@ -124,7 +140,7 @@ export async function sendEmail(options: EmailOptions): Promise<{ success: boole
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: sanitizedFromEmail,
+        from: sanitizedSenderEmail,
         to: sanitizedToEmails,
         subject: sanitizedSubject,
         html: sanitizedHtml,

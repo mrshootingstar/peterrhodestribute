@@ -5,16 +5,7 @@ interface Tribute {
   message: string;
   email?: string;
   phone?: string;
-  imageUrl?: string | null;
-}
-
-function escapeHtml(unsafe: string) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  imageUrl?: string;
 }
 
 export async function sendTributeNotificationEmail(tribute: Tribute, env: any) {
@@ -29,18 +20,16 @@ export async function sendTributeNotificationEmail(tribute: Tribute, env: any) {
     }
 
     const subject = `New Tribute Submission from ${tribute.name}`;
-    const escapedMessage = escapeHtml(tribute.message);
     const body = `
       <h1>New Tribute Submission</h1>
       <p><strong>Name:</strong> ${tribute.name}</p>
       <p><strong>Message:</strong></p>
-      <p>${escapedMessage.replace(/\n/g, '<br>')}</p>
+      <p>${tribute.message.replace(/\n/g, '<br>')}</p>
       ${tribute.email ? `<p><strong>Email:</strong> ${tribute.email}</p>` : ''}
       ${tribute.phone ? `<p><strong>Phone:</strong> ${tribute.phone}</p>` : ''}
       ${tribute.imageUrl ? `<p><strong>Image:</strong> <a href="${tribute.imageUrl}">${tribute.imageUrl}</a></p>` : ''}
       <br>
       <p>This email was sent because a new tribute was submitted on the website.</p>
-      <p style="font-size: smaller; color: #888;"><b>Note:</b> The Resend free plan has a limit of 100 emails per day.</p>
     `;
 
     await resend.emails.send({

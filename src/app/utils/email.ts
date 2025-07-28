@@ -1,5 +1,4 @@
 import validator from 'validator';
-import DOMPurify from 'isomorphic-dompurify';
 
 interface EmailOptions {
   to: string | string[];
@@ -89,16 +88,20 @@ export function getSenderEmail(): string {
   return SENDER_EMAIL_ADDRESS;
 }
 
+
+
 /**
- * Sanitize email content
+ * Sanitize HTML content for emails
+ * Simple sanitization that works in edge runtime without DOM dependencies
  */
-function sanitizeEmailContent(html: string): string {
-  // Sanitize HTML content while preserving email-safe elements
-  return DOMPurify.sanitize(html, {
-    ALLOWED_TAGS: ['p', 'div', 'br', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'ul', 'ol', 'li', 'span', 'table', 'tr', 'td', 'th', 'tbody', 'thead'],
-    ALLOWED_ATTR: ['href', 'target', 'style', 'class'],
-    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
-  });
+function sanitizeHtmlContent(html: string): string {
+  // Basic HTML escaping for user content while preserving email template structure
+  // This approach works in edge runtime without DOM dependencies
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
+    .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '') // Remove iframe tags
+    .replace(/javascript:/gi, '') // Remove javascript: protocols
+    .replace(/on\w+\s*=/gi, ''); // Remove event handlers like onclick, onload, etc.
 }
 
 /**
@@ -123,7 +126,7 @@ export async function sendEmail(options: EmailOptions): Promise<{ success: boole
 
   // Sanitize subject and HTML content
   const sanitizedSubject = validator.escape(options.subject.substring(0, 998)); // Email subject length limit
-  const sanitizedHtml = sanitizeEmailContent(options.html);
+  const sanitizedHtml = sanitizeHtmlContent(options.html);
 
   // Validate sender email if provided
   let senderEmail = options.from || getSenderEmail();

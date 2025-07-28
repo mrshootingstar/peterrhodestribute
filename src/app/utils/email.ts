@@ -298,7 +298,7 @@ export function generateTributeNotificationEmail(tribute: {
         </div>
         
         <p style="text-align: center;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/admin/dashboard" class="button">
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://peterrhodestribute.com'}/admin/dashboard" class="button">
             Review in Admin Dashboard
           </a>
         </p>

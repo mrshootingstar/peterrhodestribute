@@ -40,7 +40,8 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       resendApiKey: env.RESEND_API_KEY ? '******' + env.RESEND_API_KEY.slice(-4) : 'Not Set',
-      adminEmail: env.ADMIN_EMAIL || 'Not Set'
+      adminEmail: env.ADMIN_EMAIL || 'Not Set',
+      fromEmail: env.FROM_EMAIL || 'Not Set'
     });
 
   } catch (error) {

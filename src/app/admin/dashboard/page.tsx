@@ -23,6 +23,7 @@ interface Tribute {
 interface AdminSecrets {
   resendApiKey: string;
   adminEmail: string;
+  fromEmail: string;
 }
 
 type FilterType = 'all' | 'pending' | 'approved';
@@ -299,19 +300,23 @@ export default function AdminDashboard() {
               <p className="text-red-800 font-medium">{secretsError}</p>
             </div>
           ) : secrets ? (
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <p className="text-slate-600">Admin Email:</p>
-                <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.adminEmail}</p>
-              </div>
-              <div className="flex justify-between items-center">
-                <p className="text-slate-600">Resend API Key:</p>
-                <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.resendApiKey}</p>
-              </div>
-              <p className="text-xs text-orange-600 mt-2">
-                ⚠️ The Resend API Key is a secret and should not be fully displayed. This is shown for debugging purposes only.
-              </p>
-            </div>
+                         <div className="space-y-3">
+               <div className="flex justify-between items-center">
+                 <p className="text-slate-600">Admin Email:</p>
+                 <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.adminEmail}</p>
+               </div>
+               <div className="flex justify-between items-center">
+                 <p className="text-slate-600">From Email:</p>
+                 <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.fromEmail}</p>
+               </div>
+               <div className="flex justify-between items-center">
+                 <p className="text-slate-600">Resend API Key:</p>
+                 <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.resendApiKey}</p>
+               </div>
+               <p className="text-xs text-orange-600 mt-2">
+                 ⚠️ The Resend API Key is a secret and should not be fully displayed. This is shown for debugging purposes only.
+               </p>
+             </div>
           ) : (
             <div className="text-center py-4">
               <div className="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2"></div>

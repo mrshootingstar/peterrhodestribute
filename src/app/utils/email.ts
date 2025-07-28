@@ -66,6 +66,14 @@ export function getAdminEmailConfig(): AdminEmailConfig {
 }
 
 /**
+ * Get the configured from email address
+ */
+export function getFromEmail(): string {
+  const env = process.env as any;
+  return env.FROM_EMAIL || 'noreply@yourdomain.com';
+}
+
+/**
  * Sanitize email content
  */
 function sanitizeEmailContent(html: string): string {
@@ -102,7 +110,7 @@ export async function sendEmail(options: EmailOptions): Promise<{ success: boole
   const sanitizedHtml = sanitizeEmailContent(options.html);
 
   // Validate from email if provided
-  let fromEmail = options.from || 'noreply@yourdomain.com';
+  let fromEmail = options.from || getFromEmail();
   const sanitizedFromEmail = validateAndSanitizeEmail(fromEmail);
   if (!sanitizedFromEmail) {
     return { success: false, error: 'Invalid from email address' };

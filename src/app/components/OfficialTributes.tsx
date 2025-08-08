@@ -100,7 +100,7 @@ export function OfficialTributes() {
                 Law Reform Commission of Hong Kong
               </h4>
               <p className="text-gray-300 text-sm sm:text-base mb-4 leading-relaxed">
-                Official Statement on Professor Peter Rhodes
+                In warm remembrance of and heartfelt thanks to Professor Peter Rhodes
               </p>
               <div className="flex items-center justify-center gap-6">
                 <a

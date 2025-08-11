@@ -4,23 +4,23 @@ export function MemorialService() {
       <div className="max-w-6xl mx-auto">
         <div className="rounded-xl sm:rounded-2xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-gray-300" style={{backgroundColor: '#e5e5e5'}}>
           <div className="text-center">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8" style={{color: '#1e3a8a'}}>
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8" style={{color: '#0f172a'}}>
               Memorial Service
             </h3>
             
             <div className="mb-6 sm:mb-8 max-w-4xl mx-auto">
-              <p className="text-lg sm:text-xl md:text-2xl leading-relaxed mb-6" style={{color: '#1e3a8a'}}>
+              <p className="text-lg sm:text-xl md:text-2xl leading-relaxed mb-6" style={{color: '#0f172a'}}>
                 The Memorial service for Professor Peter Rhodes will be held virtually and in-person
               </p>
               
               <div className="space-y-3 sm:space-y-4">
-                <div className="text-xl sm:text-2xl md:text-3xl font-semibold" style={{color: '#1e3a8a'}}>
+                <div className="text-xl sm:text-2xl md:text-3xl font-semibold" style={{color: '#0f172a'}}>
                   Saturday, August 30
                 </div>
-                <div className="text-lg sm:text-xl md:text-2xl font-medium" style={{color: '#1e3a8a'}}>
+                <div className="text-lg sm:text-xl md:text-2xl font-medium" style={{color: '#0f172a'}}>
                   11:30 - 14:00
                 </div>
-                <div className="text-lg sm:text-xl md:text-2xl font-medium" style={{color: '#1e3a8a'}}>
+                <div className="text-lg sm:text-xl md:text-2xl font-medium" style={{color: '#0f172a'}}>
                   Chung Chi College Chapel, CUHK
                 </div>
               </div>

@@ -1,13 +1,13 @@
 export function MemorialService() {
   return (
-    <section className="mb-8 sm:mb-10 lg:mb-12">
+    <section className="mb-6 sm:mb-8 lg:mb-10">
       <div className="max-w-6xl mx-auto">
         <div
           className="rounded-xl sm:rounded-2xl shadow-2xl p-6 sm:p-8 border border-gray-300 relative overflow-hidden"
           style={{ backgroundColor: "#e5e5e5" }}
         >
           <div className="text-center relative z-10">
-            <div className="mb-6 sm:mb-7">
+            <div className="mb-4 sm:mb-5">
               <h3
                 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight"
                 style={{ color: "#0f172a" }}
@@ -17,8 +17,8 @@ export function MemorialService() {
               <div className="w-20 h-0.5 bg-slate-900 mx-auto rounded-full opacity-40"></div>
             </div>
 
-            <div className="mb-7 sm:mb-8 max-w-4xl mx-auto">
-              <p className="text-lg sm:text-xl md:text-2xl leading-snug mb-6 font-medium" style={{ color: "#0f172a" }}>
+            <div className="mb-5 sm:mb-6 max-w-4xl mx-auto">
+              <p className="text-lg sm:text-xl md:text-2xl leading-snug mb-4 font-medium" style={{ color: "#0f172a" }}>
               The Memorial service for Professor Peter Rhodes will be at CUHK on Saturday, August 30. For those unable to attend in person, details of a live stream of the event will be provided closer to time.
               </p>
 
@@ -73,7 +73,7 @@ export function MemorialService() {
               </div>
             </div>
 
-            <div className="relative">
+            <div className="relative mt-4">
               <a
                 href="https://lu.ma/1zg5ulvh"
                 target="_blank"

@@ -26,7 +26,9 @@ export function MemorialService() {
             
             <p className="text-slate-700 text-lg sm:text-xl md:text-2xl leading-relaxed mb-6 sm:mb-8 max-w-4xl mx-auto">
               The Memorial service for Professor Peter Rhodes will be held virtually and in-person on{' '}
-              <span className="font-semibold text-slate-800">Saturday, August 30</span>.
+              <span className="font-semibold text-slate-800">Saturday, August 30</span> from{' '}
+              <span className="font-semibold text-slate-800">11:30 - 14:00</span> at{' '}
+              <span className="font-semibold text-slate-800">Chung Chi College Chapel, CUHK</span>.
             </p>
             
             <a

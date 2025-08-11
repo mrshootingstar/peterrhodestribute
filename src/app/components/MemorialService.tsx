@@ -30,10 +30,7 @@ export function MemorialService() {
               href="https://lu.ma/1zg5ulvh"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 font-semibold text-lg sm:text-xl rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
-              style={{backgroundColor: '#1f2937', color: '#e5e5e5'}}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#374151'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#1f2937'}
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gray-800 hover:bg-gray-700 text-gray-100 font-semibold text-lg sm:text-xl rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Information and RSVP HERE
               <svg 

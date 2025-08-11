@@ -19,7 +19,7 @@ export function MemorialService() {
 
             <div className="mb-7 sm:mb-8 max-w-4xl mx-auto">
               <p className="text-lg sm:text-xl md:text-2xl leading-snug mb-6 font-medium" style={{ color: "#0f172a" }}>
-                The Memorial service for Professor Peter Rhodes will be held virtually and in-person
+              The Memorial service for Professor Peter Rhodes will be at CUHK on Saturday, August 30. For those unable to attend in person, details of a live stream of the event will be provided closer to time.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">

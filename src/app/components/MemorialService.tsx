@@ -30,7 +30,7 @@ export function MemorialService() {
               href="https://lu.ma/1zg5ulvh"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-blue-900 hover:bg-blue-800 text-white font-semibold text-lg sm:text-xl rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-lg sm:text-xl rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Information and RSVP HERE
               <svg 

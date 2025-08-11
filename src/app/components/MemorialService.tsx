@@ -1,6 +1,6 @@
 export function MemorialService() {
   return (
-    <section className="mb-6 sm:mb-8">
+    <section className="mb-8 sm:mb-10 lg:mb-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className="rounded-xl sm:rounded-2xl shadow-2xl p-6 sm:p-8 border border-gray-300 relative overflow-hidden"

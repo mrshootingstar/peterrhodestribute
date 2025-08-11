@@ -2,6 +2,7 @@ import { TributeForm } from './components/TributeForm';
 import { PhotoGallery } from './components/PhotoGallery';
 import { TributesList } from './components/TributesList';
 import { OfficialTributes } from './components/OfficialTributes';
+import { MemorialService } from './components/MemorialService';
 
 export default function HomePage() {
   return (
@@ -13,6 +14,9 @@ export default function HomePage() {
             In Memoriam
           </h1>
         </header>
+
+        {/* Memorial Service Announcement */}
+        <MemorialService />
 
         {/* Photo Gallery */}
         <section className="mb-8 sm:mb-10 lg:mb-12">

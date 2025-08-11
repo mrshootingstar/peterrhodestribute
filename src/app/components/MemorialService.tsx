@@ -7,9 +7,9 @@ export function MemorialService() {
           style={{ backgroundColor: "#e5e5e5" }}
         >
           <div className="text-center relative z-10">
-            <div className="mb-4 sm:mb-5">
+            <div className="mb-3 sm:mb-4">
               <h3
-                className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight"
+                className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1 tracking-tight"
                 style={{ color: "#0f172a" }}
               >
                 Memorial Service
@@ -17,12 +17,12 @@ export function MemorialService() {
               <div className="w-20 h-0.5 bg-slate-900 mx-auto rounded-full opacity-40"></div>
             </div>
 
-            <div className="mb-5 sm:mb-6 max-w-4xl mx-auto">
-              <p className="text-lg sm:text-xl md:text-2xl leading-snug mb-4 font-medium" style={{ color: "#0f172a" }}>
+            <div className="mb-4 sm:mb-5 max-w-4xl mx-auto">
+              <p className="text-lg sm:text-xl md:text-2xl leading-snug mb-3 font-medium" style={{ color: "#0f172a" }}>
               The Memorial service for Professor Peter Rhodes will be at CUHK on Saturday, August 30. For those unable to attend in person, details of a live stream of the event will be provided closer to time.
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
                 {/* Date & Time Column */}
                 <div className="flex items-center gap-4">
                   <svg
@@ -73,7 +73,7 @@ export function MemorialService() {
               </div>
             </div>
 
-            <div className="relative mt-4">
+            <div className="relative mt-3">
               <a
                 href="https://lu.ma/1zg5ulvh"
                 target="_blank"

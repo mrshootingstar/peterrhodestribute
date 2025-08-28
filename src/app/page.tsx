@@ -3,6 +3,7 @@ import { PhotoGallery } from './components/PhotoGallery';
 import { TributesList } from './components/TributesList';
 import { OfficialTributes } from './components/OfficialTributes';
 import { MemorialService } from './components/MemorialService';
+import LiveStreamCard from './components/LiveStreamCard';
 
 export default function HomePage() {
   return (
@@ -17,6 +18,9 @@ export default function HomePage() {
 
         {/* Memorial Service Announcement */}
         <MemorialService />
+
+        {/* Live Stream Information */}
+        <LiveStreamCard />
 
         {/* Photo Gallery */}
         <section className="mb-8 sm:mb-10 lg:mb-12">

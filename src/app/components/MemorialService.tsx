@@ -103,11 +103,10 @@ export function MemorialService() {
                 href="https://www.youtube.com/watch?v=9zg5se87sag"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 font-bold text-lg sm:text-xl rounded-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl relative overflow-hidden"
-                style={{ borderColor: '#8B2635', color: '#8B2635' }}
+                className="group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 font-bold text-lg sm:text-xl rounded-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl relative overflow-hidden"
+                style={{ backgroundColor: '#8B2635', color: 'white' }}
               >
-                <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundColor: '#8B2635' }}></span>
-                <span className="relative z-10 flex items-center group-hover:text-white transition-colors duration-300">
+                <span className="relative z-10 flex items-center">
                   Watch Live Stream
                   <svg
                     className="w-5 h-5 sm:w-6 sm:h-6 ml-2 transform group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300"

@@ -19,7 +19,7 @@ export function MemorialService() {
 
             <div className="mb-4 sm:mb-5 max-w-4xl mx-auto">
               <p className="text-lg sm:text-xl md:text-2xl leading-snug mb-3 font-medium" style={{ color: "#0f172a" }}>
-              The Memorial service for Professor Peter Rhodes will be at CUHK on Saturday, August 30. For those unable to attend in person, details of a live stream of the event will be provided closer to time.
+              The Memorial service for Professor Peter Rhodes will be at CUHK on Saturday, August 30. For those unable to attend in person, the memorial event will be live streamed.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
@@ -73,7 +73,7 @@ export function MemorialService() {
               </div>
             </div>
 
-            <div className="relative mt-3">
+            <div className="relative mt-3 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
               <a
                 href="https://lu.ma/1zg5ulvh"
                 target="_blank"
@@ -94,6 +94,31 @@ export function MemorialService() {
                       strokeLinejoin="round"
                       strokeWidth={2.5}
                       d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </span>
+              </a>
+              
+              <a
+                href="https://www.youtube.com/watch?v=9zg5se87sag"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-red-600 hover:bg-red-700 text-white font-bold text-lg sm:text-xl rounded-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-xl hover:shadow-2xl relative overflow-hidden"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-red-700 to-red-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                <span className="relative z-10 flex items-center">
+                  Watch Live Stream
+                  <svg
+                    className="w-5 h-5 sm:w-6 sm:h-6 ml-2 transform group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
                     />
                   </svg>
                 </span>

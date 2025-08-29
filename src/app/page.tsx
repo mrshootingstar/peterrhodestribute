@@ -7,9 +7,9 @@ import { MemorialService } from './components/MemorialService';
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-6 lg:py-8">
         {/* Header */}
-        <header className="text-center mb-8 sm:mb-10 lg:mb-12">
+        <header className="text-center mb-4 sm:mb-10 lg:mb-12">
           <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 leading-tight">
             In Memoriam
           </h1>
@@ -19,12 +19,12 @@ export default function HomePage() {
         <MemorialService />
 
         {/* Photo Gallery */}
-        <section className="mb-8 sm:mb-10 lg:mb-12">
+        <section className="mb-4 sm:mb-10 lg:mb-12">
           <PhotoGallery />
         </section>
 
         {/* Memorial Information */}
-        <section className="text-center mb-12 sm:mb-14 lg:mb-16">
+        <section className="text-center mb-6 sm:mb-14 lg:mb-16">
           <div className="max-w-4xl mx-auto bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-12 border border-gray-700">
             <h2 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 lg:mb-6 leading-tight">
               Peter Frederick Rhodes
@@ -42,9 +42,9 @@ export default function HomePage() {
         <OfficialTributes />
 
         {/* Tribute Submission Section */}
-        <section className="mb-12 sm:mb-14 lg:mb-16">
+        <section className="mb-6 sm:mb-14 lg:mb-16">
           <div className="max-w-4xl mx-auto">
-            <h3 className="text-3xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-6 sm:mb-8 px-4">
+            <h3 className="text-3xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-3 sm:mb-8 px-4">
               Share Your Memories
             </h3>
             <div className="bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 lg:p-8 border border-gray-700">

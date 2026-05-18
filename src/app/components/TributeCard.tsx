@@ -7,7 +7,7 @@ type TributeLink = {
 
 type TributeCardProps = {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   links: TributeLink[];
 };
 
@@ -41,9 +41,11 @@ export function TributeCard({ title, subtitle, links }: TributeCardProps) {
           <h4 className="text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
             {title}
           </h4>
-          <p className="text-gray-300 text-sm sm:text-base mb-4 leading-relaxed">
-            {subtitle}
-          </p>
+          {subtitle && (
+            <p className="text-gray-300 text-sm sm:text-base mb-4 leading-relaxed">
+              {subtitle}
+            </p>
+          )}
           <div className="flex items-center justify-center text-blue-400 group-hover:text-blue-300 transition-colors">
             <span className="text-sm font-medium">{link.label}</span>
             <ArrowIcon className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
@@ -57,9 +59,11 @@ export function TributeCard({ title, subtitle, links }: TributeCardProps) {
     <div className={shellClasses}>
       <div className="text-center">
         <h4 className="text-lg sm:text-xl font-bold text-white mb-3">{title}</h4>
-        <p className="text-gray-300 text-sm sm:text-base mb-4 leading-relaxed">
-          {subtitle}
-        </p>
+        {subtitle && (
+          <p className="text-gray-300 text-sm sm:text-base mb-4 leading-relaxed">
+            {subtitle}
+          </p>
+        )}
         <div className="flex items-center justify-center gap-6">
           {links.map((link, i) => (
             <Fragment key={link.href}>

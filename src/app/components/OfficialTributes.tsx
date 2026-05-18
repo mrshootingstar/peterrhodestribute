@@ -19,14 +19,9 @@ export function OfficialTributes() {
             <p className="text-[0.7rem] sm:text-xs tracking-[0.35em] uppercase text-amber-200/70 mb-6 sm:mb-8 font-light">
               In Loving Memory
             </p>
-            <h4 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-5 leading-tight">
+            <h4 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight">
               Peter Frederick Rhodes
             </h4>
-            <p className="text-base sm:text-lg text-gray-400 font-light tracking-wide">
-              <span className="tabular-nums">1948</span>
-              <span className="mx-3 text-amber-200/60">—</span>
-              <span className="tabular-nums">2025</span>
-            </p>
 
             <div className="flex items-center justify-center my-8 sm:my-10" aria-hidden="true">
               <span className="h-px w-16 sm:w-24 bg-amber-200/30" />

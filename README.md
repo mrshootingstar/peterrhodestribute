@@ -16,6 +16,73 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Connecting a fresh clone to the live deployment
+
+This project is **already deployed** to a Cloudflare Pages project named `peterrhodestribute` (live at https://peterrhodestribute.com). The Pages project is **not** connected to GitHub — there is no auto-deploy on push. Every production release happens manually from a developer machine via `pnpm deploy`. If you've just cloned this repo and need to push a new version, follow the steps below.
+
+> If you're standing up a brand-new deployment from scratch (different Cloudflare account, fresh D1 and R2), follow `setup-instructions.md` instead — it covers creating new resources. The steps below assume you want to deploy to the **existing** infrastructure.
+
+### 1. Get access to the Cloudflare account
+
+The project lives in the Cloudflare account associated with `m.mirghorbani@gmail.com`. You need to be added as a member with at least Pages, D1, and R2 write access before any of the following will work.
+
+### 2. Install and authenticate
+
+```bash
+pnpm install
+npx wrangler login      # opens a browser — log in as a member of the account above
+npx wrangler whoami     # confirm the right account is selected
+```
+
+If you have multiple Cloudflare accounts, Wrangler will prompt you to pick one on the first deploy — make sure to pick the one that owns this project.
+
+### 3. Confirm the existing resources are visible to you
+
+The `wrangler.jsonc` already references the production D1 database (`tribute-db`, id `0d802835-d429-4883-b417-2ad372744f9d`) and R2 bucket (`tribute-images`). Verify you can see them:
+
+```bash
+npx wrangler pages project list | grep peterrhodestribute
+npx wrangler d1 list            | grep tribute-db
+npx wrangler r2 bucket list     | grep tribute-images
+```
+
+**Do not** run `wrangler d1 create` or change the `database_id` in `wrangler.jsonc` — that would orphan the live data. Same for the R2 bucket name.
+
+### 4. Runtime secrets (already set in production)
+
+The app reads two secrets at runtime. Both are already configured on the deployed project — you don't need to set them to deploy, only to rotate them.
+
+| Secret | Read at | Purpose |
+|---|---|---|
+| `TRIBUTE_ADMIN_PASSWORD_HASH` | `src/app/api/auth/login/route.ts` | bcrypt hash of the admin password |
+| `RESEND_API_KEY` | `src/app/utils/email.ts` | Resend API key for admin email notifications |
+
+To inspect or rotate:
+
+```bash
+npx wrangler pages secret list --project-name=peterrhodestribute
+npx wrangler pages secret put  TRIBUTE_ADMIN_PASSWORD_HASH --project-name=peterrhodestribute
+npx wrangler pages secret put  RESEND_API_KEY              --project-name=peterrhodestribute
+```
+
+> **Heads up — orphan secrets.** The Pages project also has `ADMIN_EMAIL` and `FROM_EMAIL` configured, but the current code does not read them. Admin recipient and sender addresses are hardcoded in `src/app/utils/email.ts` (constants `ADMIN_NOTIFICATION_EMAILS` and `SENDER_EMAIL_ADDRESS`). If you want to change who receives notification emails, edit those constants and redeploy — setting the env vars alone will do nothing.
+
+### 5. Deploy
+
+```bash
+pnpm deploy
+```
+
+This runs `next-on-pages` to produce the build output, then `wrangler pages deploy` to upload it to the `peterrhodestribute` Pages project as a production deployment.
+
+To verify the deploy landed, check the deployment list:
+
+```bash
+npx wrangler pages deployment list --project-name=peterrhodestribute | head -5
+```
+
+The newest row should show the commit you just deployed.
+
 ## Cloudflare integration
 
 Besides the `dev` script mentioned above `c3` has added a few extra scripts that allow you to integrate the application with the [Cloudflare Pages](https://pages.cloudflare.com/) environment, these are:

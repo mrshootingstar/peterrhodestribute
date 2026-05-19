@@ -4,7 +4,7 @@ export function OfficialTributes() {
   return (
     <section className="mb-12 sm:mb-14 lg:mb-16">
       <div className="max-w-6xl mx-auto px-4">
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-8 sm:mb-10">
+        <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-white mb-8 sm:mb-10">
           Official Tributes
         </h3>
 
@@ -30,7 +30,7 @@ export function OfficialTributes() {
             </div>
 
             <div className="inline-flex items-center text-blue-400 group-hover:text-blue-300 transition-colors">
-              <span className="text-sm sm:text-base font-medium tracking-wide">
+              <span className="text-lg sm:text-xl font-medium tracking-wide">
                 View Memorial Booklet
               </span>
               <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

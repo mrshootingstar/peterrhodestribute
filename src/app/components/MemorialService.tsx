@@ -19,7 +19,7 @@ export function MemorialService() {
 
             <div className="mb-4 sm:mb-5 max-w-4xl mx-auto">
               <p className="text-lg sm:text-xl md:text-2xl leading-snug mb-3 font-medium" style={{ color: "#0f172a" }}>
-              The Memorial service for Professor Peter Rhodes will be at CUHK on Saturday, August 30. For those unable to attend in person, the memorial event will be live streamed.
+              The memorial service for Professor Peter Rhodes was held at CUHK on Saturday, August 30, 2025. Below are permanent links to a recording of the service and the memorial booklet and photo presentation created as tributes.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
@@ -75,31 +75,6 @@ export function MemorialService() {
 
             <div className="relative mt-3 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
               <a
-                href="https://lu.ma/1zg5ulvh"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold text-lg sm:text-xl rounded-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-xl hover:shadow-2xl relative overflow-hidden"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-gray-700 to-gray-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                <span className="relative z-10 flex items-center">
-                  Information and RSVP HERE
-                  <svg
-                    className="w-5 h-5 sm:w-6 sm:h-6 ml-2 transform group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2.5}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    />
-                  </svg>
-                </span>
-              </a>
-              
-              <a
                 href="https://www.youtube.com/watch?v=9zg5se87sag"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -107,7 +82,7 @@ export function MemorialService() {
                 style={{ backgroundColor: '#8B2635', color: 'white' }}
               >
                 <span className="relative z-10 flex items-center">
-                  Attend Memorial Online
+                  Recording of Memorial Service
                   <svg
                     className="w-5 h-5 sm:w-6 sm:h-6 ml-2 transform group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300"
                     fill="none"

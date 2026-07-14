@@ -1,0 +1,15 @@
+name = "peterrhodestribute-email-relay"
+main = "index.js"
+compatibility_date = "2025-07-18"
+
+# Destination addresses must be verified in Cloudflare Email Routing
+# (Account > Email > Email Routing > Destination addresses) before mail
+# can be sent to them through this binding.
+[[send_email]]
+name = "SEND_EMAIL"
+allowed_destination_addresses = [
+  "m.mirghorbani@gmail.com",
+  "jeanarhodes@gmail.com",
+]
+
+# RELAY_SECRET is set via `wrangler secret put RELAY_SECRET` (not in this file).

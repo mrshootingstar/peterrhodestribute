@@ -21,7 +21,7 @@ interface Tribute {
 }
 
 interface AdminSecrets {
-  resendApiKey: string;
+  emailDelivery: string;
   adminEmail: string;
   fromEmail: string;
 }
@@ -310,12 +310,9 @@ export default function AdminDashboard() {
                  <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.fromEmail}</p>
                </div>
                <div className="flex justify-between items-center">
-                 <p className="text-slate-600">Resend API Key:</p>
-                 <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.resendApiKey}</p>
+                 <p className="text-slate-600">Email Delivery:</p>
+                 <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded-md text-slate-800">{secrets.emailDelivery}</p>
                </div>
-               <p className="text-xs text-orange-600 mt-2">
-                 ⚠️ The Resend API Key is a secret and should not be fully displayed. This is shown for debugging purposes only.
-               </p>
              </div>
           ) : (
             <div className="text-center py-4">

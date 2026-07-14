@@ -9,7 +9,6 @@ interface EmailOptions {
 
 interface EmailSystemConfig {
   adminEmails: string[];
-  resendApiKey: string;
 }
 
 /**
@@ -72,12 +71,8 @@ export function getSenderEmailAddress(): string {
  * Get admin email configuration
  */
 export function getAdminEmailConfig(): EmailSystemConfig {
-  const env = process.env as any;
-  const resendApiKey = env.RESEND_API_KEY || '';
-  
   return {
-    adminEmails: parseAdminEmails(ADMIN_NOTIFICATION_EMAILS),
-    resendApiKey
+    adminEmails: parseAdminEmails(ADMIN_NOTIFICATION_EMAILS)
   };
 }
 
@@ -105,13 +100,18 @@ function sanitizeHtmlContent(html: string): string {
 }
 
 /**
- * Send email using Resend API
+ * Send email via the peterrhodestribute-email-relay Worker, which holds the
+ * Cloudflare Email Workers send_email binding (not supported directly on
+ * Pages projects). Recipients must be verified Cloudflare Email Routing
+ * destination addresses. See workers/email-relay/.
  */
 export async function sendEmail(options: EmailOptions): Promise<{ success: boolean; error?: string }> {
-  const config = getAdminEmailConfig();
-  
-  if (!config.resendApiKey) {
-    return { success: false, error: 'Resend API key not configured' };
+  const env = process.env as any;
+  const relayUrl = env.EMAIL_RELAY_URL;
+  const relaySecret = env.EMAIL_RELAY_SECRET;
+
+  if (!relayUrl || !relaySecret) {
+    return { success: false, error: 'Email relay not configured' };
   }
 
   // Validate and sanitize email addresses
@@ -129,17 +129,17 @@ export async function sendEmail(options: EmailOptions): Promise<{ success: boole
   const sanitizedHtml = sanitizeHtmlContent(options.html);
 
   // Validate sender email if provided
-  let senderEmail = options.from || getSenderEmail();
+  const senderEmail = options.from || getSenderEmail();
   const sanitizedSenderEmail = validateAndSanitizeEmail(senderEmail);
   if (!sanitizedSenderEmail) {
     return { success: false, error: 'Invalid sender email address' };
   }
 
   try {
-    const response = await fetch('https://api.resend.com/emails', {
+    const response = await fetch(relayUrl, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${config.resendApiKey}`,
+        'Authorization': `Bearer ${relaySecret}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -152,7 +152,7 @@ export async function sendEmail(options: EmailOptions): Promise<{ success: boole
 
     if (!response.ok) {
       const errorData = await response.text();
-      return { success: false, error: `Resend API error: ${errorData}` };
+      return { success: false, error: `Email relay error: ${errorData}` };
     }
 
     return { success: true };

@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
     const env = process.env as any;
 
     const systemConfig = {
-      resendApiKey: env.RESEND_API_KEY ? '******' + env.RESEND_API_KEY.slice(-4) : 'Not Set',
+      emailDelivery: env.EMAIL_RELAY_URL && env.EMAIL_RELAY_SECRET ? 'Cloudflare Email (via relay worker)' : 'Not Set',
       adminEmail: getAdminEmails(),
       fromEmail: getSenderEmailAddress()
     };

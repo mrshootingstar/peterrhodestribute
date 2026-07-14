@@ -50,22 +50,20 @@ npx wrangler r2 bucket list     | grep tribute-images
 
 ### 4. Runtime secrets (already set in production)
 
-The app reads two secrets at runtime. Both are already configured on the deployed project — you don't need to set them to deploy, only to rotate them.
+The app reads one secret at runtime. It's already configured on the deployed project — you don't need to set it to deploy, only to rotate it.
 
 | Secret | Read at | Purpose |
 |---|---|---|
 | `TRIBUTE_ADMIN_PASSWORD_HASH` | `src/app/api/auth/login/route.ts` | bcrypt hash of the admin password |
-| `RESEND_API_KEY` | `src/app/utils/email.ts` | Resend API key for admin email notifications |
 
 To inspect or rotate:
 
 ```bash
 npx wrangler pages secret list --project-name=peterrhodestribute
 npx wrangler pages secret put  TRIBUTE_ADMIN_PASSWORD_HASH --project-name=peterrhodestribute
-npx wrangler pages secret put  RESEND_API_KEY              --project-name=peterrhodestribute
 ```
 
-> **Heads up — orphan secrets.** The Pages project also has `ADMIN_EMAIL` and `FROM_EMAIL` configured, but the current code does not read them. Admin recipient and sender addresses are hardcoded in `src/app/utils/email.ts` (constants `ADMIN_NOTIFICATION_EMAILS` and `SENDER_EMAIL_ADDRESS`). If you want to change who receives notification emails, edit those constants and redeploy — setting the env vars alone will do nothing.
+> **Heads up — orphan secrets.** The Pages project also has `ADMIN_EMAIL`, `FROM_EMAIL`, and `RESEND_API_KEY` configured, but the current code does not read them — admin notification emails send via the Cloudflare `SEND_EMAIL` binding (`wrangler.jsonc`), not Resend. Admin recipient and sender addresses are hardcoded in `src/app/utils/email.ts` (constants `ADMIN_NOTIFICATION_EMAILS` and `SENDER_EMAIL_ADDRESS`). If you want to change who receives notification emails, edit those constants (and the `allowed_destination_addresses` list in `wrangler.jsonc` — each recipient must be a verified Cloudflare Email Routing destination) and redeploy.
 
 ### 5. Deploy
 

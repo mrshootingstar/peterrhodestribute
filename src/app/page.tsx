@@ -10,9 +10,12 @@ export default function HomePage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-6 lg:py-8">
         {/* Header */}
         <header className="text-center mb-4 sm:mb-10 lg:mb-12">
-          <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 leading-tight">
-            In Memoriam
+          <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 leading-tight italic">
+            In Perpetuam Memoriam
           </h1>
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-300">
+            <span className="font-bold text-amber-200">July 13, 2026</span> marks the first anniversary of Professor Peter Rhodes&apos; passing.
+          </p>
         </header>
 
         {/* Memorial Service Announcement */}

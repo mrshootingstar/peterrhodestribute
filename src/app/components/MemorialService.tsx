@@ -7,16 +7,6 @@ export function MemorialService() {
           style={{ backgroundColor: "#e5e5e5" }}
         >
           <div className="text-center relative z-10">
-            <div className="mb-3 sm:mb-4">
-              <h3
-                className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1 tracking-tight"
-                style={{ color: "#0f172a" }}
-              >
-                Memorial Service
-              </h3>
-              <div className="w-20 h-0.5 bg-slate-900 mx-auto rounded-full opacity-40"></div>
-            </div>
-
             <div className="mb-4 sm:mb-5 max-w-4xl mx-auto">
               <p className="text-lg sm:text-xl md:text-2xl leading-snug mb-3 font-medium" style={{ color: "#0f172a" }}>
               The memorial service for Professor Peter Rhodes was held at CUHK on Saturday, August 30, 2025. Below are permanent links to a recording of the service and the memorial booklet and photo presentation created as tributes.
